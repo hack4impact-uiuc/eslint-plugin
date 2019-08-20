@@ -1,4 +1,4 @@
-# no-anonymous-parameterless-props.md
+# no-anonymous-parameterless-props
 
 Requires that parameterless functions used as props be passed in through their identifiers, not using an anonymous function.
 
@@ -16,7 +16,7 @@ class Example extends Component {
 }
 ```
 
-```ts
+```js
 class Example extends Component {
   render() {
     return (
@@ -30,7 +30,7 @@ class Example extends Component {
 
 ### Bad
 
-```ts
+```js
 class Example extends Component {
   render() {
     return <Button onClick={() => this.toggle()}>Close</Button>;
