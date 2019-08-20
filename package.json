@@ -1,7 +1,7 @@
 {
   "name": "@h4iuiuc/eslint-plugin",
   "version": "0.0.1",
-  "description": "An ESLint plugin intended for use by Hack4Impact UIUC",
+  "description": "An ESLint plugin intended for use with Hack4Impact UIUC projects.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run clean && tsc -p tsconfig.build.json && prettier --write dist/**/*.js",

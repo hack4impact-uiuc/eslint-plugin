@@ -19,7 +19,11 @@ class Example extends Component {
 ```ts
 class Example extends Component {
   render() {
-    return <Button onClick={() => this.setState({modal: !this.state.modal})}>Close</Button>;
+    return (
+      <Button onClick={() => this.setState({ modal: !this.state.modal })}>
+        Close
+      </Button>
+    );
   }
 }
 ```
