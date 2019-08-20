@@ -5,6 +5,7 @@ export = {
     "plugin:@typescript-eslint/recommended"
   ],
   rules: {
+    "@h4iuiuc/no-anonymous-parameterless-functions": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {

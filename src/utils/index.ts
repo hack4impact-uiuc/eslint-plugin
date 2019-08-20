@@ -1,0 +1,1 @@
+export { getRuleMetaData } from "./metadata";

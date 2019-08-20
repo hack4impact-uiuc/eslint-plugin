@@ -49,6 +49,7 @@
     "@types/eslint": "^4.16.8",
     "@types/estree": "0.0.39",
     "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.2",
     "chai": "^4.2.0",
     "eslint": "^6.1.0",
     "markdownlint-cli": "^0.18.0",
