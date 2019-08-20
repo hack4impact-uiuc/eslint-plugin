@@ -5,11 +5,10 @@ export = {
       jsx: true
     }
   },
-  plugins: ["@typescript-eslint", "import", "jsx-a11y", "react"],
+  plugins: ["import", "jsx-a11y", "react"],
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
-    "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended"
   ],
