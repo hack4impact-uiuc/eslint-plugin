@@ -20,7 +20,9 @@ npm install @h4iuiuc/eslint-plugin --save-dev
 
 To enable `@h4iuiuc/eslint-plugin`, you'll need to create a `.eslintrc.json` file for ESLint configuration.
 
-As this plugin abstracts away most of the configuration, for a JavaScript-only app all you'll need to have in your `.eslintrc.json` file is the following:
+This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-react` through the `recommended` config (inspired by `eslint-config-react-app`).
+
+For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file is the following:
 
 ```json
 {
@@ -38,12 +40,10 @@ If your app uses TypeScript at all, you'll want to also extend the `typescript` 
 }
 ```
 
-If you need to modify or disable specific rules, you can do so in the `rules` section of your `.eslintrc` configuration file. For example, if you wish to disable `no-anonymous-parameterless-props`:
+If you need to modify or disable specific rules, you can do so in the `rules` section of your `.eslintrc.json` file. For example, if you wish to disable `no-anonymous-parameterless-props`, add the following to your `.eslintrc.json` file:
 
 ```json
 {
-  "plugins": ["@h4iuiuc"],
-  "extends": ["plugin:@h4iuiuc/recommended", "plugin:@h4iuiuc/typescript"],
   "rules": {
     "@h4iuiuc/no-anonymous-parameterless-props": "off"
   }
