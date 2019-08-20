@@ -1,10 +1,6 @@
 import rule from "../../src/rules/no-null-ternary";
 import { RuleTester } from "eslint";
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
-
 const ruleTester = new RuleTester({
   parser: require.resolve("@typescript-eslint/parser"),
   parserOptions: {

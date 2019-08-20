@@ -8,9 +8,11 @@ export = {
     "forbid ternary conditional operators where one side is null",
     "code"
   ),
+
   create: (context: Rule.RuleContext): Rule.RuleListener => {
     const sourceCode = context.getSourceCode();
     return {
+      // look for null on right-hand side
       "ConditionalExpression[alternate.type='Literal']": (
         node: ConditionalExpression
       ): void => {
@@ -31,6 +33,7 @@ export = {
         }
       },
 
+      // look for null on left-hand side
       "ConditionalExpression[consequent.type='Literal']": (
         node: ConditionalExpression
       ): void => {

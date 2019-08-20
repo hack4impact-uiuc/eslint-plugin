@@ -1,10 +1,6 @@
 import rule from "../../src/rules/no-anonymous-parameterless-props";
 import { RuleTester } from "eslint";
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
-
 const ruleTester = new RuleTester({
   parser: require.resolve("@typescript-eslint/parser"),
   parserOptions: {
@@ -15,21 +11,21 @@ const ruleTester = new RuleTester({
 });
 
 const validIdentifier = `class Example extends Component {
-render() {
-  return <Button onClick={this.toggle}>Close</Button>;
-}
+  render() {
+    return <Button onClick={this.toggle}>Close</Button>;
+  }
 }`;
 
 const validAnonymous = `class Example extends Component {
-render() {
-  return <Button onClick={() => this.setState({modal: !this.state.modal})}>Close</Button>;
-}
+  render() {
+    return <Button onClick={() => this.setState({modal: !this.state.modal})}>Close</Button>;
+  }
 }`;
 
 const invalid = `class Example extends Component {
-render() {
-  return <Button onClick={() => this.toggle()}>Close</Button>;
-}
+  render() {
+    return <Button onClick={() => this.toggle()}>Close</Button>;
+  }
 }`;
 
 ruleTester.run("no-anonymous-parameterless-props", rule, {

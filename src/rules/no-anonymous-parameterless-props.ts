@@ -8,14 +8,17 @@ export = {
     "require parameterless functions used as props to be passed in by their identifiers",
     "code"
   ),
+
   create: (context: Rule.RuleContext): Rule.RuleListener =>
     ({
+      // if the prop is a CallExpression
       "JSXAttribute > JSXExpressionContainer > ArrowFunctionExpression[body.type='CallExpression']": (
         node: ArrowFunctionExpression
       ): void => {
         const callExpression = node.body as CallExpression;
         const callee = callExpression.callee;
 
+        // if it's an identifier with no arguments, report
         if (
           callee.type === "MemberExpression" &&
           callee.property.type === "Identifier" &&
