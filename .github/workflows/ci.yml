@@ -3,10 +3,8 @@ name: CI
 on: push
 
 jobs:
-  Audit:
-
+  audit:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -17,10 +15,8 @@ jobs:
         npm install
         npm audit
         
-  Format:
-
+  format:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -31,10 +27,8 @@ jobs:
         npm install
         npm run format:check
         
-  Lint:
-
+  lint:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -45,10 +39,8 @@ jobs:
         npm install
         npm run lint
         
-  Test:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -59,10 +51,8 @@ jobs:
         npm install
         npm test
         
-  Build:
-
+  typecheck:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -71,4 +61,4 @@ jobs:
     - name: npm run build
       run: |
         npm install
-        npm run build
+        npx tsc
