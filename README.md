@@ -72,5 +72,5 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 
 | Rule                                                                                    | Default                   | Fixable            |
 | --------------------------------------------------------------------------------------- | ------------------------- | ------------------ |
-| [**no-null-ternary**](/docs/rules/null-ternary.md)                                      | :triangular_flag_on_post: | :heavy_check_mark: |
+| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                                   | :triangular_flag_on_post: | :heavy_check_mark: |
 | [**no-anonymous-parameterless-props**](/docs/rules/no-anonymous-parameterless-props.md) | :triangular_flag_on_post: | :heavy_check_mark: |
