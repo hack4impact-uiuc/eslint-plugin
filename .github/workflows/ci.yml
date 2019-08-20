@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10
     - name: npm audit
@@ -23,7 +23,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10
     - name: npm run format
@@ -37,7 +37,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10
     - name: npm run lint
@@ -51,7 +51,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10
     - name: npm test
@@ -65,7 +65,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10
     - name: npm run build
