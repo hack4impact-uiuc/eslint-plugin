@@ -59,7 +59,7 @@ jobs:
         npm install
         npm test
         
-  build:
+  builds:
 
     runs-on: ubuntu-latest
 
