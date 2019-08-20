@@ -1,4 +1,4 @@
-# eslint-plugin [![CircleCI](https://circleci.com/gh/hack4impact-uiuc/eslint-plugin.svg?style=svg)](https://circleci.com/gh/hack4impact-uiuc/eslint-plugin)
+# eslint-plugin
 
 An ESLint plugin intended for use with Hack4Impact UIUC projects.
 
