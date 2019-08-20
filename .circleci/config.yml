@@ -91,5 +91,4 @@ workflows:
       - audit
       - format
       - lint
-      - typecheck
       - build
