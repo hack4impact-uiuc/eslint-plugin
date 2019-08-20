@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/hack4impact-uiuc/eslint-plugin/issues"
   },
-  "homepage": "https://github.com/hack4impact-uiuc/eslint-plugin#readme"
+  "homepage": "https://github.com/hack4impact-uiuc/eslint-plugin#readme",
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
 }

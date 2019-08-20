@@ -12,8 +12,7 @@
     "pretty": true,
     "removeComments": true,
     "strict": true,
-    "target": "es2016",
-    "types": ["node"]
+    "target": "es5"
   },
   "include": ["src", "tests"]
 }
