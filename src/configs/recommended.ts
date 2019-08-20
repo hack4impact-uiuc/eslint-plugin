@@ -19,7 +19,7 @@ export = {
   },
   rules: {
     "@h4iuiuc/no-null-ternary": "error",
-    "@h4iuiuc/no-anonymous-parameterless-functions": "error",
+    "@h4iuiuc/no-anonymous-parameterless-props": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     eqeqeq: "error",

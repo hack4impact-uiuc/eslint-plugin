@@ -7,7 +7,8 @@ export = {
   ],
   rules: {
     "@h4iuiuc/no-null-ternary": "error",
-    "@h4iuiuc/no-anonymous-parameterless-functions": "error",
+    "@h4iuiuc/no-anonymous-parameterless-props": "error",
+    "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {
