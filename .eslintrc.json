@@ -1,7 +1,5 @@
 {
   "env": {
-    "browser": true,
-    "es6": true,
     "node": true
   },
   "extends": [
@@ -14,7 +12,7 @@
     "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2019,
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
@@ -24,7 +22,7 @@
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        "ignore": [0]
+        "ignore": [0, 1]
       }
     ],
     "@typescript-eslint/no-explicit-any": "off",
