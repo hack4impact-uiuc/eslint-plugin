@@ -7,11 +7,6 @@ import { describe, it } from "mocha";
 import { assert } from "chai";
 
 /**
- * A list of all currently supported rules
- */
-const ruleList: string[] = [];
-
-/**
  * Verifies that each inputted rule is properly structured
  * @param ruleName the name of the rule to test
  * @param rules the ESLint plugin rules object containing all rule information
@@ -19,10 +14,6 @@ const ruleList: string[] = [];
  */
 const testRule = (ruleName: string, rules: any): void => {
   describe(ruleName, (): void => {
-    it(`${ruleName} should be a member of rules`, (): void => {
-      assert.property(rules, ruleName, `${ruleName} is not a member of rules`);
-    });
-
     const rule = rules[ruleName];
 
     describe("meta", (): void => {
@@ -139,46 +130,38 @@ describe("plugin", (): void => {
       assert.property(plugin, "rules", "rules is not a member of the plugin");
     });
 
-    it("the number of rules should match the expected value", (): void => {
-      assert.equal(Object.keys(plugin.rules).length, ruleList.length);
-    });
-
     const rules = plugin.rules;
 
-    ruleList.forEach((rule: string): void => {
+    for (const rule in rules) {
       testRule(rule, rules);
+    }
+  });
+});
+
+describe("configs", (): void => {
+  it("configs should be a member of the plugin", (): void => {
+    assert.property(plugin, "configs", "configs is not a member of the plugin");
+  });
+
+  const configs = plugin.configs;
+
+  describe("recommended", (): void => {
+    it("recommended should be a member of configs", (): void => {
+      assert.property(
+        configs,
+        "recommended",
+        "recommended is not a member of configs"
+      );
     });
   });
 
-  describe("configs", (): void => {
-    it("configs should be a member of the plugin", (): void => {
+  describe("typescript", (): void => {
+    it("typescript should be a member of configs", (): void => {
       assert.property(
-        plugin,
-        "configs",
-        "configs is not a member of the plugin"
+        configs,
+        "typescript",
+        "typescript is not a member of configs"
       );
-    });
-
-    const configs = plugin.configs;
-
-    describe("recommended", (): void => {
-      it("recommended should be a member of configs", (): void => {
-        assert.property(
-          configs,
-          "recommended",
-          "recommended is not a member of configs"
-        );
-      });
-    });
-
-    describe("typescript", (): void => {
-      it("typescript should be a member of configs", (): void => {
-        assert.property(
-          configs,
-          "typescript",
-          "typescript is not a member of configs"
-        );
-      });
     });
   });
 });

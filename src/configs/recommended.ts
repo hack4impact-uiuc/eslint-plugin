@@ -5,11 +5,10 @@ export = {
       jsx: true
     }
   },
-  plugins: ["@typescript-eslint", "import", "jsx-a11y", "react"],
+  plugins: ["import", "jsx-a11y", "react"],
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
-    "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended"
   ],
@@ -19,6 +18,8 @@ export = {
     }
   },
   rules: {
+    "@h4iuiuc/no-null-ternary": "error",
+    "@h4iuiuc/no-anonymous-parameterless-functions": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     eqeqeq: "error",

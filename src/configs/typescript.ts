@@ -1,10 +1,13 @@
 export = {
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "import"],
   extends: [
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
   ],
   rules: {
+    "@h4iuiuc/no-null-ternary": "error",
+    "@h4iuiuc/no-anonymous-parameterless-functions": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {
