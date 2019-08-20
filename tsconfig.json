@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./dist",
+    "pretty": true,
+    "removeComments": true,
+    "strict": true,
+    "target": "es2016",
+    "types": ["node"]
+  },
+  "include": ["src", "tests"]
+}
