@@ -6,6 +6,7 @@ export = {
     "plugin:import/typescript"
   ],
   rules: {
+    "@h4iuiuc/no-null-ternary": "error",
     "@h4iuiuc/no-anonymous-parameterless-functions": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",

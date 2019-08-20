@@ -18,6 +18,7 @@ export = {
     }
   },
   rules: {
+    "@h4iuiuc/no-null-ternary": "error",
     "@h4iuiuc/no-anonymous-parameterless-functions": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",

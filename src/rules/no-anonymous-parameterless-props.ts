@@ -1,5 +1,5 @@
 import { Rule } from "eslint";
-import { CallExpression, ArrowFunctionExpression, Identifier } from "estree";
+import { ArrowFunctionExpression, CallExpression, Identifier } from "estree";
 import { getRuleMetaData } from "../utils";
 
 export = {
