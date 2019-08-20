@@ -4,7 +4,7 @@
   "description": "An ESLint plugin intended for use by Hack4Impact UIUC",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run clean && tsc -p tsconfig.build.json && prettier --write dist/**/*.{js,json,md}",
+    "build": "npm run clean && tsc -p tsconfig.build.json && prettier --write dist/**/*.js",
     "clean": "rimraf dist/",
     "format": "prettier --write \"./**/*.{ts,json,md}\"",
     "format:check": "prettier --check \"./**/*.{ts,json,md}\"",
@@ -17,9 +17,21 @@
   },
   "keywords": [
     "eslint",
-    "eslint-plugin"
+    "eslint-plugin",
+    "h4i",
+    "h4iuiuc",
+    "hack4impact",
+    "uiuc",
+    "hack4impact-uiuc"
   ],
   "author": "Hack4Impact UIUC",
+  "contributors": [
+    {
+      "name": "Arpan Laha",
+      "email": "arpanlaha99@gmail.com",
+      "url": "https://github.com/arpanlaha"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hack4impact-uiuc/eslint-plugin/issues"
@@ -34,6 +46,8 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.0",
+    "@types/eslint": "^4.16.8",
+    "@types/estree": "0.0.39",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "eslint": "^6.1.0",
