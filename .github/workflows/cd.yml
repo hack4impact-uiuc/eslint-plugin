@@ -75,5 +75,6 @@ jobs:
       with:
         node-version: 10
     - uses: actions/npm@v2
-      args: publish --access
-      secrets: [NPM_AUTH_TOKEN]
+      with:
+        args: publish --access
+        secrets: [NPM_AUTH_TOKEN]
