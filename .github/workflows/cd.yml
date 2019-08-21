@@ -1,28 +1,80 @@
-name: CI
+name: CD
 
-on: 
+on:
   push:
     branches:
     - master
 
 jobs:
-  publish:
-
+  audit:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: 10.x
-
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 10
     - name: npm audit
       run: |
         npm install
-        npm publish
+        npm audit
         
-  
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: npm run format
+      run: |
+        npm install
+        npm run format:check
+        
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: npm run lint
+      run: |
+        npm install
+        npm run lint
+        
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: npm run build
+      run: |
+        npm install
+        npx tsc
+        
+  test:
+    needs: typecheck
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - name: npm test
+      run: |
+        npm install
+        npm test
+    
+  publish:
+    needs: [format, lint, test]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - uses: actions/npm@master
+      args: publish --access
+      secrets: [NPM_AUTH_TOKEN]
