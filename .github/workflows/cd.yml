@@ -1,10 +1,9 @@
-name: CI
+name: CD
 
 on:
   push:
     branches:
-    - '*'
-    - '!master'
+    - master
 
 jobs:
   audit:
@@ -67,4 +66,14 @@ jobs:
         npm install
         npm test
     
-    
+  publish:
+    needs: [format, lint, typecheck, test]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    - uses: actions/npm@v2
+      args: publish --access
+      secrets: [NPM_AUTH_TOKEN]
