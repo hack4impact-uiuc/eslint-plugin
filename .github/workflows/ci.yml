@@ -72,4 +72,4 @@ jobs:
         node-version: 10
     - uses: actions/bin/filter@master
       with: 
-        args: branch ci-cd
+        args: branch master
