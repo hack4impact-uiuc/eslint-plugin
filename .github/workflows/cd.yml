@@ -4,6 +4,12 @@ on:
   push:
     branches:
     - master
+    paths:
+    - src/*
+    - .github/worksflows/cd.yml
+    - package.json
+    - README.md
+
 
 jobs:
   audit:
@@ -74,7 +80,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 10
-    - uses: actions/npm@v2
+    - uses: actions/npm@v2.0.0
       with:
         args: publish --access
         secrets: NPM_AUTH_TOKEN
