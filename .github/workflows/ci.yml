@@ -1,6 +1,10 @@
 name: CI
 
-on: push
+on:
+  push:
+    branches:
+    - !master
+
 
 jobs:
   audit:
@@ -52,7 +56,6 @@ jobs:
         npx tsc
         
   test:
-    needs: branch
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -63,16 +66,3 @@ jobs:
       run: |
         npm install
         npm test
-        
-  
-
-  branch:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 10
-    - uses: actions/bin/filter@master
-      with: 
-        args: branch master
