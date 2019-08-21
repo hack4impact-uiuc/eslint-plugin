@@ -1,4 +1,4 @@
-# eslint-plugin
+# eslint-plugin [![npm package](https://img.shields.io/npm/v/@h4iuiuc/eslint-plugin)](https://www.npmjs.com/package/@h4iuiuc/eslint-plugin)
 
 An ESLint plugin intended for use with Hack4Impact UIUC projects.
 
