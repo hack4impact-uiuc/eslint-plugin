@@ -77,4 +77,4 @@ jobs:
     - uses: actions/npm@v2
       with:
         args: publish --access
-        secrets: [NPM_AUTH_TOKEN]
+        secrets: NPM_AUTH_TOKEN
