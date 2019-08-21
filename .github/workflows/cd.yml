@@ -4,12 +4,6 @@ on:
   push:
     branches:
     - master
-    paths:
-    - src/*
-    - .github/worksflows/cd.yml
-    - package.json
-    - README.md
-
 
 jobs:
   audit:
