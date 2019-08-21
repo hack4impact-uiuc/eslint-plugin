@@ -76,5 +76,5 @@ jobs:
         node-version: 10
     - uses: actions/npm@v2.0.0
       with:
-        args: publish --access
+        args: publish --access public
         secrets: NPM_AUTH_TOKEN
