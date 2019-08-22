@@ -16,6 +16,8 @@ jobs:
         with:
           node-version: 10
       - name: npm audit
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install
           npm audit
@@ -28,6 +30,8 @@ jobs:
         with:
           node-version: 10
       - name: npm run format
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install
           npm run format:check
@@ -40,6 +44,8 @@ jobs:
         with:
           node-version: 10
       - name: npm run lint
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install
           npm run lint
@@ -52,6 +58,8 @@ jobs:
         with:
           node-version: 10
       - name: npm run build
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install
           npx tsc
@@ -64,6 +72,8 @@ jobs:
         with:
           node-version: 10
       - name: npm test
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install
           npm test
