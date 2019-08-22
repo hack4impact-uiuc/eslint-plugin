@@ -17,7 +17,7 @@ jobs:
           node-version: 10
       - name: npm audit
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm audit
@@ -31,7 +31,7 @@ jobs:
           node-version: 10
       - name: npm run format
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm run format:check
@@ -45,7 +45,7 @@ jobs:
           node-version: 10
       - name: npm run lint
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm run lint
@@ -59,7 +59,7 @@ jobs:
           node-version: 10
       - name: npm run build
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npx tsc
@@ -73,7 +73,7 @@ jobs:
           node-version: 10
       - name: npm test
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm test
@@ -88,7 +88,7 @@ jobs:
           node-version: 10
       - name: npm publish--access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm publish --access public
