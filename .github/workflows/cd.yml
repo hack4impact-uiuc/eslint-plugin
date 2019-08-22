@@ -76,8 +76,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
-      - env:
+      - name: npm publish--access public
+        env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        uses: actions/npm@v2.0.0
-        with:
-          args: publish --access public
+        run: |
+          npm install
+          npm publish --access public

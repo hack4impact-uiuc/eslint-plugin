@@ -78,6 +78,8 @@ jobs:
         with:
           node-version: 10
       - name: npm publish --dry-run --access public
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm publish --dry-run --access public
