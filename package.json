@@ -7,13 +7,13 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run clean && tsc -p tsconfig.build.json && prettier --write dist/**/*.js",
+    "build": "npm run clean && npx tsc -p tsconfig.build.json && prettier --write dist/**/*.js",
     "clean": "npx rimraf dist/",
     "format": "prettier --write \"./**/*.{ts,json,md,yml}\"",
     "format:check": "prettier --check \"./**/*.{ts,json,md,yml}\"",
     "lint": "eslint src tests --ext .ts && markdownlint README.md docs",
     "prepack": "npm run build",
-    "test": "npm run clean && tsc -p tsconfig.json && mocha --timeout 10000 --recursive dist/tests"
+    "test": "npm run clean && npx tsc -p tsconfig.json && mocha --timeout 10000 --recursive dist/tests"
   },
   "repository": {
     "type": "git",
