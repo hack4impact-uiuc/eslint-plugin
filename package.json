@@ -1,8 +1,11 @@
 {
   "name": "@h4iuiuc/eslint-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An ESLint plugin intended for use with Hack4Impact UIUC projects.",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npm run clean && tsc -p tsconfig.build.json && prettier --write dist/**/*.js",
     "clean": "rimraf dist/",
