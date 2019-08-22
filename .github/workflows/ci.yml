@@ -79,6 +79,4 @@ jobs:
           node-version: 10
       - env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        uses: actions/npm@v2.0.0
-        with:
-          args: run build && publish --dry-run --access public
+        run: npm publish --dry-run --access public
