@@ -30,6 +30,7 @@ export = {
     "no-lone-blocks": "error",
     "no-magic-numbers": ["error", { ignore: [0, 1] }],
     "no-multi-spaces": "error",
+    "no-nested-ternary": "error",
     "no-redeclare": "error",
     "no-sequences": "error",
     "no-useless-escape": "off",
