@@ -5,6 +5,9 @@ export = {
       jsx: true
     }
   },
+  env: {
+    node: true
+  },
   plugins: ["import", "jsx-a11y", "react"],
   extends: [
     "eslint:recommended",
@@ -40,6 +43,7 @@ export = {
     "prefer-spread": "error",
     "prefer-template": "error",
     "react/no-unescaped-entities": "off",
+    "react/prop-types": "off",
     "require-await": "error"
   }
 };
