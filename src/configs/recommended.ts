@@ -6,6 +6,7 @@ export = {
     }
   },
   env: {
+    es6: true,
     node: true
   },
   plugins: ["import", "jsx-a11y", "react"],
@@ -19,7 +20,11 @@ export = {
     react: {
       version: "detect"
     },
-    "import/extensions": [".js", ".jsx", ".ts", ".tsx"]
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   rules: {
     "@h4iuiuc/no-null-ternary": "error",
