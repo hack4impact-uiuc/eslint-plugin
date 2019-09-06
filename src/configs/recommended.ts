@@ -18,7 +18,8 @@ export = {
   settings: {
     react: {
       version: "detect"
-    }
+    },
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"]
   },
   rules: {
     "@h4iuiuc/no-null-ternary": "error",
