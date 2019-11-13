@@ -28,6 +28,31 @@ class Example extends Component {
 }
 ```
 
+```js
+class Example extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: ['One', 'Two', 'Three'],
+      currentItem: null
+    };
+  }
+
+  render() {
+    return (
+      <>
+        <h1>Current Item: {this.state.currentItem}</h1>
+        {this.state.items.map(item => (
+          <Button onClick={() => this.setState({ currentItem: item })}>
+            Close
+          </Button>
+        ))}
+      </>
+    );
+  }
+}
+```
+
 ### Bad
 
 ```js
