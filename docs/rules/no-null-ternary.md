@@ -1,6 +1,6 @@
 # no-null-ternary
 
-Forbids placing `null` on one side of a ternary operator insider a component's `render` method.
+Forbids placing `null` on one side of a ternary operator inside a component's `render` method.
 
 This rule is fixable using the `--fix` option.
 
