@@ -1,6 +1,6 @@
 # no-null-ternary
 
-Forbids placing `null` on one side of a ternary operator.
+Forbids placing `null` on one side of a ternary operator insider a component's `render` method.
 
 This rule is fixable using the `--fix` option.
 
@@ -20,6 +20,14 @@ class Example extends Component {
 class Example extends Component {
   render() {
     return <>{condition && "Example"}</>;
+  }
+}
+```
+
+```js
+class Example extends Component {
+  notRender() {
+    return <>{condition ? "Example" : null}</>;
   }
 }
 ```

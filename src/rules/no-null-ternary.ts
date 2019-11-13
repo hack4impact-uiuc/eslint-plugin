@@ -13,7 +13,7 @@ export = {
     const sourceCode = context.getSourceCode();
     return {
       // look for null on right-hand side
-      "ConditionalExpression[alternate.type='Literal']": (
+      "MethodDefinition[key.name='render'] ConditionalExpression[alternate.type='Literal']": (
         node: ConditionalExpression
       ): void => {
         const alternate = node.alternate as Literal;
@@ -34,7 +34,7 @@ export = {
       },
 
       // look for null on left-hand side
-      "ConditionalExpression[consequent.type='Literal']": (
+      "MethodDefinition[key.name='render'] ConditionalExpression[consequent.type='Literal']": (
         node: ConditionalExpression
       ): void => {
         const consequent = node.consequent as Literal;

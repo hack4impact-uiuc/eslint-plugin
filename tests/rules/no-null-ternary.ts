@@ -40,6 +40,16 @@ const validNegative = `class Example extends Component {
   }
 }`;
 
+const validNotRender = `class Example extends Component {
+  notRender() {
+    return (
+      <>
+        {condition ? "Example" : null}
+      </>
+    )
+  }
+}`;
+
 const invalidPositive = `class Example extends Component {
   render() {
     return (
@@ -70,6 +80,9 @@ ruleTester.run("no-null-ternary", rule, {
     },
     {
       code: validNegative
+    },
+    {
+      code: validNotRender
     }
   ],
   invalid: [
