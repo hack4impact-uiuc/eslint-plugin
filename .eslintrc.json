@@ -2,10 +2,12 @@
   "env": {
     "node": true
   },
+  "plugins": ["@typescript-eslint", "eslint-plugin"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:eslint-plugin/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -25,8 +27,12 @@
         "ignore": [0, 1]
       }
     ],
+    "@typescript-eslint/naming-convention": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+    "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
     "arrow-body-style": ["error", "as-needed"],
     "curly": "error",
     "eqeqeq": "error",
