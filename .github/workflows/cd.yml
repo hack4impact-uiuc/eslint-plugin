@@ -6,6 +6,9 @@ on:
       - master
     tags:
       - "!*"
+    paths-ignore:
+      - "docs/**/*"
+      - "README.md"
 
 jobs:
   audit:
