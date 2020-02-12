@@ -26,6 +26,18 @@ class Example extends Component {
 
 ```js
 class Example extends Component {
+  render() {
+    return (
+      <>
+        {!condition && "Example"}
+      </>
+    )
+  }
+}
+```
+
+```js
+class Example extends Component {
   notRender() {
     return <>{condition ? "Example" : null}</>;
   }
