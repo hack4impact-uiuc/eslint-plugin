@@ -22,6 +22,7 @@ export = {
           const reportMessage =
             "parameterless functions used as props should be passed in by their identifiers";
 
+          // () => this.foo()
           if (
             callee.type === "MemberExpression" &&
             callee.object.type === "ThisExpression" &&
@@ -35,6 +36,7 @@ export = {
                 fixer.replaceText(node, `this.${functionIdentifier.name}`)
             });
           } else if (callee.type === "Identifier") {
+            // () => foo()
             context.report({
               node: node,
               message: reportMessage,

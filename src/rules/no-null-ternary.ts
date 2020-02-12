@@ -11,6 +11,9 @@ export = {
 
   create: (context: Rule.RuleContext): Rule.RuleListener => {
     const sourceCode = context.getSourceCode();
+    const errorMessage =
+      "unnecessary ternary conditional, use {condition} && {consequent} instead";
+
     return {
       // look for null on right-hand side
       "MethodDefinition[key.name='render'] ConditionalExpression[alternate.type='Literal']": (
@@ -20,8 +23,7 @@ export = {
         if (alternate.value === null) {
           context.report({
             node: node,
-            message:
-              "unnecessary ternary conditional, use {condition} && {consequent} instead",
+            message: errorMessage,
             fix: (fixer: Rule.RuleFixer): Rule.Fix =>
               fixer.replaceText(
                 node,
@@ -41,8 +43,7 @@ export = {
         if (consequent.value === null) {
           context.report({
             node: node,
-            message:
-              "unnecessary ternary conditional, use !{condition} && {consequent} instead",
+            message: errorMessage,
             fix: (fixer: Rule.RuleFixer): Rule.Fix =>
               fixer.replaceText(
                 node,

@@ -1,14 +1,5 @@
 import rule from "../../src/rules/no-anonymous-parameterless-props";
-import { RuleTester } from "eslint";
-
-const ruleTester = new RuleTester({
-  parser: require.resolve("@typescript-eslint/parser"),
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    }
-  }
-});
+import { ruleTester } from "../tester";
 
 const validIdentifier = `class Example extends Component {
   render() {
