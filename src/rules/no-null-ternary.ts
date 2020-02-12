@@ -11,8 +11,6 @@ export = {
 
   create: (context: Rule.RuleContext): Rule.RuleListener => {
     const sourceCode = context.getSourceCode();
-    const errorMessage =
-      "unnecessary ternary conditional, use {condition} && {consequent} instead";
 
     return {
       // look for null on right-hand side
@@ -23,7 +21,8 @@ export = {
         if (alternate.value === null) {
           context.report({
             node: node,
-            message: errorMessage,
+            message:
+              "unnecessary ternary conditional, use {condition} && {consequent} instead",
             fix: (fixer: Rule.RuleFixer): Rule.Fix =>
               fixer.replaceText(
                 node,
@@ -43,7 +42,8 @@ export = {
         if (consequent.value === null) {
           context.report({
             node: node,
-            message: errorMessage,
+            message:
+              "unnecessary ternary conditional, use !{condition} && {consequent} instead",
             fix: (fixer: Rule.RuleFixer): Rule.Fix =>
               fixer.replaceText(
                 node,
