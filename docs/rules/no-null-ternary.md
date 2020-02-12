@@ -27,11 +27,7 @@ class Example extends Component {
 ```js
 class Example extends Component {
   render() {
-    return (
-      <>
-        {!condition && "Example"}
-      </>
-    )
+    return <>{!condition && "Example"}</>;
   }
 }
 ```
