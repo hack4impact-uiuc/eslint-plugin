@@ -28,12 +28,36 @@ class Example extends Component {
 }
 ```
 
+```js
+class Example extends Component {
+  render() {
+    return <Button onClick={e => e.preventDefault()}>Submit</Button>;
+  }
+}
+```
+
+```js
+class Example extends Component {
+  render() {
+    return <Button onClick={toggle}>Close</Button>;
+  }
+}
+```
+
 ### Bad
 
 ```js
 class Example extends Component {
   render() {
     return <Button onClick={() => this.toggle()}>Close</Button>;
+  }
+}
+```
+
+```js
+class Example extends Component {
+  render() {
+    return <Button onClick={() => toggle()}>Close</Button>;
   }
 }
 ```

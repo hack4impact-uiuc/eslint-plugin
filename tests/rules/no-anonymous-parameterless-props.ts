@@ -22,9 +22,27 @@ const validAnonymous = `class Example extends Component {
   }
 }`;
 
+const validPreventDefault = `class Example extends Component {
+  render() {
+    return <Button onClick={e => e.preventDefault()}>Submit</Button>;
+  }
+}`;
+
+const validNoThis = `class Example extends Component {
+  render() {
+    return <Button onClick={toggle}>Close</Button>;
+  }
+}`;
+
 const invalid = `class Example extends Component {
   render() {
     return <Button onClick={() => this.toggle()}>Close</Button>;
+  }
+}`;
+
+const invalidNoThis = `class Example extends Component {
+  render() {
+    return <Button onClick={() => toggle()}>Close</Button>;
   }
 }`;
 
@@ -35,7 +53,9 @@ ruleTester.run("no-anonymous-parameterless-props", rule, {
     },
     {
       code: validAnonymous
-    }
+    },
+    { code: validPreventDefault },
+    { code: validNoThis }
   ],
   invalid: [
     {
@@ -47,6 +67,16 @@ ruleTester.run("no-anonymous-parameterless-props", rule, {
         }
       ],
       output: validIdentifier
+    },
+    {
+      code: invalidNoThis,
+      errors: [
+        {
+          message:
+            "parameterless functions used as props should be passed in by their identifiers"
+        }
+      ],
+      output: validNoThis
     }
   ]
 });

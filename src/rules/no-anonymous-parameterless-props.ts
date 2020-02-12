@@ -12,26 +12,36 @@ export = {
   create: (context: Rule.RuleContext): Rule.RuleListener =>
     ({
       // if the prop is a CallExpression
-      "JSXAttribute > JSXExpressionContainer > ArrowFunctionExpression[body.type='CallExpression']": (
+      "JSXElement ArrowFunctionExpression[body.type='CallExpression']": (
         node: ArrowFunctionExpression
       ): void => {
         const callExpression = node.body as CallExpression;
         const callee = callExpression.callee;
 
-        // if it's an identifier with no arguments, report
-        if (
-          callee.type === "MemberExpression" &&
-          callee.property.type === "Identifier" &&
-          callExpression.arguments.length === 0
-        ) {
-          const functionIdentifier = callee.property as Identifier;
-          context.report({
-            node: node,
-            message:
-              "parameterless functions used as props should be passed in by their identifiers",
-            fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-              fixer.replaceText(node, `this.${functionIdentifier.name}`)
-          });
+        if (node.params.length === 0 && callExpression.arguments.length === 0) {
+          const reportMessage =
+            "parameterless functions used as props should be passed in by their identifiers";
+
+          if (
+            callee.type === "MemberExpression" &&
+            callee.object.type === "ThisExpression" &&
+            callee.property.type === "Identifier"
+          ) {
+            const functionIdentifier = callee.property as Identifier;
+            context.report({
+              node: node,
+              message: reportMessage,
+              fix: (fixer: Rule.RuleFixer): Rule.Fix =>
+                fixer.replaceText(node, `this.${functionIdentifier.name}`)
+            });
+          } else if (callee.type === "Identifier") {
+            context.report({
+              node: node,
+              message: reportMessage,
+              fix: (fixer: Rule.RuleFixer): Rule.Fix =>
+                fixer.replaceText(node, callee.name)
+            });
+          }
         }
       }
     } as Rule.RuleListener)
