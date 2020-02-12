@@ -16,7 +16,7 @@ export = {
       // look for null on right-hand side
       "MethodDefinition[key.name='render'] ConditionalExpression[alternate.type='Literal'][alternate.value=null]": (
         node: ConditionalExpression
-      ): void => {
+      ): void =>
         context.report({
           node: node,
           message:
@@ -28,13 +28,12 @@ export = {
                 node.consequent
               )}`
             )
-        });
-      },
+        }),
 
       // look for null on left-hand side
       "MethodDefinition[key.name='render'] ConditionalExpression[consequent.type='Literal'][consequent.value=null]": (
         node: ConditionalExpression
-      ): void => {
+      ): void =>
         context.report({
           node: node,
           message:
@@ -46,8 +45,7 @@ export = {
                 node.alternate
               )}`
             )
-        });
-      }
+        })
     } as Rule.RuleListener;
   }
 };
