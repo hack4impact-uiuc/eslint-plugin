@@ -16,34 +16,35 @@ export = {
         node: ArrowFunctionExpression
       ): void => {
         const callExpression = node.body as CallExpression;
+        if (node.params.length !== 0 || callExpression.arguments.length !== 0) {
+          return;
+        }
+
         const callee = callExpression.callee;
+        const reportMessage =
+          "parameterless functions used as props should be passed in by their identifiers";
 
-        if (node.params.length === 0 && callExpression.arguments.length === 0) {
-          const reportMessage =
-            "parameterless functions used as props should be passed in by their identifiers";
-
-          // () => this.foo()
-          if (
-            callee.type === "MemberExpression" &&
-            callee.object.type === "ThisExpression" &&
-            callee.property.type === "Identifier"
-          ) {
-            const functionIdentifier = callee.property as Identifier;
-            context.report({
-              node: node,
-              message: reportMessage,
-              fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-                fixer.replaceText(node, `this.${functionIdentifier.name}`)
-            });
-          } else if (callee.type === "Identifier") {
-            // () => foo()
-            context.report({
-              node: node,
-              message: reportMessage,
-              fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-                fixer.replaceText(node, callee.name)
-            });
-          }
+        // () => this.foo()
+        if (
+          callee.type === "MemberExpression" &&
+          callee.object.type === "ThisExpression" &&
+          callee.property.type === "Identifier"
+        ) {
+          const functionIdentifier = callee.property as Identifier;
+          context.report({
+            node,
+            message: reportMessage,
+            fix: (fixer: Rule.RuleFixer): Rule.Fix =>
+              fixer.replaceText(node, `this.${functionIdentifier.name}`)
+          });
+        } else if (callee.type === "Identifier") {
+          // () => foo()
+          context.report({
+            node,
+            message: reportMessage,
+            fix: (fixer: Rule.RuleFixer): Rule.Fix =>
+              fixer.replaceText(node, callee.name)
+          });
         }
       }
     } as Rule.RuleListener)

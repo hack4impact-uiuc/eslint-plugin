@@ -18,7 +18,7 @@ export = {
         node: ConditionalExpression
       ): void =>
         context.report({
-          node: node,
+          node,
           message:
             "unnecessary ternary conditional, use {condition} && {consequent} instead",
           fix: (fixer: Rule.RuleFixer): Rule.Fix =>
@@ -35,7 +35,7 @@ export = {
         node: ConditionalExpression
       ): void =>
         context.report({
-          node: node,
+          node,
           message:
             "unnecessary ternary conditional, use !{condition} && {consequent} instead",
           fix: (fixer: Rule.RuleFixer): Rule.Fix =>
