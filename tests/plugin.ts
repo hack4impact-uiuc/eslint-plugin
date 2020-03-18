@@ -30,12 +30,15 @@ const testRule = (ruleName: string, rules: any): void => {
         assert.match(docsFileContent, /## Examples\n\n/));
 
       it(`${ruleName} docs should have at least one correct example`, (): void =>
-        assert.match(docsFileContent, /### Correct\n\n(```js(.|\n)*```\n\n)+/));
+        assert.match(
+          docsFileContent,
+          /### Correct\n\n(```js(.|\n)*```\n(.|\n)*)+/
+        ));
 
       it(`${ruleName} docs should have at least one incorrect example`, (): void =>
         assert.match(
           docsFileContent,
-          /### Incorrect\n\n(```js(.|\n)*```\n\n)+/
+          /### Incorrect\n\n(```js(.|\n)*```\n(.|\n)*)+/
         ));
     });
 
