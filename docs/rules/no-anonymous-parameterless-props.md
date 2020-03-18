@@ -6,7 +6,7 @@ This rule is fixable using the `--fix` option.
 
 ## Examples
 
-### Good
+### Correct
 
 ```js
 class Example extends Component {
@@ -44,7 +44,7 @@ class Example extends Component {
 }
 ```
 
-### Bad
+### Incorrect
 
 ```js
 class Example extends Component {
