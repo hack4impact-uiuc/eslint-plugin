@@ -14,6 +14,10 @@ class Example extends Component {
     return <Button onClick={this.toggle}>Close</Button>;
   }
 }
+
+function Example() {
+  return <Button onClick={toggle}>Close</Button>;
+}
 ```
 
 ```js
@@ -26,6 +30,10 @@ class Example extends Component {
     );
   }
 }
+
+function Example() {
+  return <Button onClick={() => setModal(!modal)}>Close</Button>;
+}
 ```
 
 ```js
@@ -34,13 +42,9 @@ class Example extends Component {
     return <Button onClick={e => e.preventDefault()}>Submit</Button>;
   }
 }
-```
 
-```js
-class Example extends Component {
-  render() {
-    return <Button onClick={toggle}>Close</Button>;
-  }
+function Example() {
+  return <Button onClick={e => e.preventDefault()}>Submit</Button>;
 }
 ```
 
@@ -52,12 +56,8 @@ class Example extends Component {
     return <Button onClick={() => this.toggle()}>Close</Button>;
   }
 }
-```
 
-```js
-class Example extends Component {
-  render() {
-    return <Button onClick={() => toggle()}>Close</Button>;
-  }
+function Example() {
+  return <Button onClick={() => toggle()}>Close</Button>;
 }
 ```
