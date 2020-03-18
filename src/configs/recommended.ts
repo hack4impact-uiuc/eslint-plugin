@@ -53,6 +53,7 @@ export = {
     "react/jsx-boolean-value": ["warn", "never"],
     "react/jsx-filename-extension": "warn",
     "react/jsx-pascal-case": "warn",
+    "react/no-access-state-in-setstate": "error",
     "react/no-typos": "error",
     "react/no-unescaped-entities": "off",
     "react/prop-types": "off",
