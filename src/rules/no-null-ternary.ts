@@ -14,7 +14,7 @@ export default {
 
     return {
       // look for null on right-hand side
-      "MethodDefinition[key.name='render'] ConditionalExpression[alternate.type='Literal'][alternate.value=null]": (
+      ":matches(JSXElement, JSXFragment) ConditionalExpression[alternate.type='Literal'][alternate.value=null]": (
         node: ConditionalExpression
       ): void =>
         context.report({
@@ -31,7 +31,7 @@ export default {
         }),
 
       // look for null on left-hand side
-      "MethodDefinition[key.name='render'] ConditionalExpression[consequent.type='Literal'][consequent.value=null]": (
+      ":matches(JSXElement, JSXFragment) ConditionalExpression[consequent.type='Literal'][consequent.value=null]": (
         node: ConditionalExpression
       ): void =>
         context.report({

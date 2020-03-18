@@ -12,7 +12,7 @@ export default {
   create: (context: Rule.RuleContext): Rule.RuleListener =>
     ({
       // if the prop is a CallExpression
-      "JSXElement ArrowFunctionExpression[body.type='CallExpression']": (
+      ":matches(JSXElement, JSXFragment) ArrowFunctionExpression[body.type='CallExpression']": (
         node: ArrowFunctionExpression
       ): void => {
         const callExpression = node.body as CallExpression;

@@ -1,73 +1,92 @@
 import rule from "../../src/rules/no-anonymous-parameterless-props";
 import { ruleTester } from "../tester";
 
-const validIdentifier = `class Example extends Component {
+const validClassIdentifier = `class Example extends Component {
   render() {
     return <Button onClick={this.toggle}>Close</Button>;
   }
 }`;
 
-const validAnonymous = `class Example extends Component {
+const validFunctionIdentifier = `function Example() {
+  return <Button onClick={toggle}>Close</Button>;
+}`;
+
+const validClassAnonymous = `class Example extends Component {
   render() {
     return <Button onClick={() => this.setState({modal: !this.state.modal})}>Close</Button>;
   }
 }`;
 
-const validPreventDefault = `class Example extends Component {
+const validFunctionAnonymous = `function Example() {
+  return <Button onClick={() => setModal(!modal)}>Close</Button>;
+}`;
+
+const validClassPreventDefault = `class Example extends Component {
   render() {
     return <Button onClick={e => e.preventDefault()}>Submit</Button>;
   }
 }`;
 
-const validNoThis = `class Example extends Component {
+const validFunctionPreventDefault = `function Example() {
+  return <Button onClick={e => e.preventDefault()}>Submit</Button>;
+}`;
+
+const validClassNoThis = `class Example extends Component {
   render() {
     return <Button onClick={toggle}>Close</Button>;
   }
 }`;
 
-const invalid = `class Example extends Component {
+const invalidClass = `class Example extends Component {
   render() {
     return <Button onClick={() => this.toggle()}>Close</Button>;
   }
 }`;
 
-const invalidNoThis = `class Example extends Component {
+const invalidFunction = `function Example() {
+  return <Button onClick={() => toggle()}>Close</Button>;
+}`;
+
+const invalidClassNoThis = `class Example extends Component {
   render() {
     return <Button onClick={() => toggle()}>Close</Button>;
   }
 }`;
 
+const error = {
+  message:
+    "parameterless functions used as props should be passed in by their identifiers"
+};
+
 ruleTester.run("no-anonymous-parameterless-props", rule, {
   valid: [
     {
-      code: validIdentifier
+      code: validClassIdentifier
     },
+    { code: validFunctionIdentifier },
     {
-      code: validAnonymous
+      code: validClassAnonymous
     },
-    { code: validPreventDefault },
-    { code: validNoThis }
+    { code: validFunctionAnonymous },
+    { code: validClassPreventDefault },
+    { code: validFunctionPreventDefault },
+    { code: validClassNoThis }
   ],
   invalid: [
     {
-      code: invalid,
-      errors: [
-        {
-          message:
-            "parameterless functions used as props should be passed in by their identifiers"
-        }
-      ],
-      output: validIdentifier
+      code: invalidClass,
+      errors: [error],
+      output: validClassIdentifier
     },
     {
-      code: invalidNoThis,
-      errors: [
-        {
-          message:
-            "parameterless functions used as props should be passed in by their identifiers"
-        }
-      ],
-      output: validNoThis
+      code: invalidFunction,
+      errors: [error],
+      output: validFunctionIdentifier
+    },
+    {
+      code: invalidClassNoThis,
+      errors: [error],
+      output: validClassNoThis
     }
   ]
 });
