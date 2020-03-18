@@ -1,4 +1,4 @@
-export = {
+export default {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {

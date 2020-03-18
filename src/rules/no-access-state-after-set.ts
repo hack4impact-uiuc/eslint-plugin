@@ -2,7 +2,7 @@ import { Rule } from "eslint";
 import { Node } from "estree";
 import { getRuleMetaData } from "../utils";
 
-export = {
+export default {
   meta: getRuleMetaData(
     "no-get-state-after-set",
     "disallows access of React state variables after they have been set in a useEffect function body",

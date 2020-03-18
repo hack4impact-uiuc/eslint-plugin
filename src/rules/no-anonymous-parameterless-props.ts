@@ -2,7 +2,7 @@ import { Rule } from "eslint";
 import { ArrowFunctionExpression, CallExpression, Identifier } from "estree";
 import { getRuleMetaData } from "../utils";
 
-export = {
+export default {
   meta: getRuleMetaData(
     "no-anonymous-parameterless-props",
     "require parameterless functions used as props to be passed in by their identifiers",
