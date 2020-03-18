@@ -20,7 +20,7 @@ npm install @h4iuiuc/eslint-plugin --save-dev
 
 To enable `@h4iuiuc/eslint-plugin`, you'll need to create a `.eslintrc.json` file for ESLint configuration.
 
-This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-react` through the `recommended` config (inspired by `eslint-config-react-app`).
+This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`, and `eslint-plugin-react-hooks` through the `recommended` config (inspired by `eslint-config-react-app`).
 
 For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file is the following:
 
@@ -31,7 +31,7 @@ For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file 
 }
 ```
 
-If your app uses TypeScript at all, you'll want to also extend the `typescript` config as follows:
+If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslint-plugin` by extending the `typescript` config as follows:
 
 ```json
 {

@@ -9,12 +9,13 @@ export = {
     es6: true,
     node: true
   },
-  plugins: ["import", "jsx-a11y", "react"],
+  plugins: ["import", "jsx-a11y", "react", "react-hooks"],
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
   ],
   settings: {
     react: {
@@ -48,8 +49,14 @@ export = {
     "prefer-rest-params": "error",
     "prefer-spread": "error",
     "prefer-template": "error",
+    "react/destructuring-assignment": "always",
+    "react/jsx-boolean-value": ["warn", "never"],
+    "react/jsx-filename-extension": "warn",
+    "react/jsx-pascal-case": "warn",
+    "react/no-typos": "error",
     "react/no-unescaped-entities": "off",
     "react/prop-types": "off",
+    "react/style-prop-object": "error",
     "require-await": "error"
   }
 };
