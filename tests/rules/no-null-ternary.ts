@@ -1,7 +1,7 @@
 import rule from "../../src/rules/no-null-ternary";
 import { ruleTester } from "../tester";
 
-const validTernary = `class Example extends Component {
+const classValidTernary = `class Example extends Component {
   render() {
     return (
       <>
@@ -11,7 +11,15 @@ const validTernary = `class Example extends Component {
   }
 }`;
 
-const validPositive = `class Example extends Component {
+const functionValidTernary = `function Example() {
+  return (
+    <>
+      {condition ? "Example" : "Other example"}
+    </>
+  )
+}`;
+
+const classValidPositive = `class Example extends Component {
   render() {
     return (
       <>
@@ -21,7 +29,15 @@ const validPositive = `class Example extends Component {
   }
 }`;
 
-const validNegative = `class Example extends Component {
+const functionValidPositive = `function Example() {
+  return (
+    <>
+      {condition && "Example"}
+    </>
+  )
+}`;
+
+const classValidNegative = `class Example extends Component {
   render() {
     return (
       <>
@@ -31,17 +47,15 @@ const validNegative = `class Example extends Component {
   }
 }`;
 
-const validNotRender = `class Example extends Component {
-  notRender() {
-    return (
-      <>
-        {condition ? "Example" : null}
-      </>
-    )
-  }
+const functionValidNegative = `function Example() {
+  return (
+    <>
+      {!condition && "Example"}
+    </>
+  )
 }`;
 
-const invalidPositive = `class Example extends Component {
+const classInvalidPositive = `class Example extends Component {
   render() {
     return (
       <>
@@ -51,7 +65,15 @@ const invalidPositive = `class Example extends Component {
   }
 }`;
 
-const invalidNegative = `class Example extends Component {
+const functionInvalidPositive = `function Example() {
+  return (
+    <>
+      {condition ? "Example" : null}
+    </>
+  )
+}`;
+
+const classInvalidNegative = `class Example extends Component {
   render() {
     return (
       <>
@@ -61,41 +83,59 @@ const invalidNegative = `class Example extends Component {
   }
 }`;
 
+const functionInvalidNegative = `function Example() {
+  return (
+    <>
+      {condition ? null : "Example"}
+    </>
+  )
+}`;
+
+const positiveError = {
+  message:
+    "unnecessary ternary conditional, use {condition} && {consequent} instead"
+};
+
+const negativeError = {
+  message:
+    "unnecessary ternary conditional, use !{condition} && {consequent} instead"
+};
+
 ruleTester.run("no-null-ternary", rule, {
   valid: [
     {
-      code: validTernary
+      code: classValidTernary
     },
+    { code: functionValidTernary },
     {
-      code: validPositive
+      code: classValidPositive
     },
+    { code: functionValidPositive },
     {
-      code: validNegative
+      code: classValidNegative
     },
-    {
-      code: validNotRender
-    }
+    { code: functionValidNegative }
   ],
   invalid: [
     {
-      code: invalidPositive,
-      errors: [
-        {
-          message:
-            "unnecessary ternary conditional, use {condition} && {consequent} instead"
-        }
-      ],
-      output: validPositive
+      code: classInvalidPositive,
+      errors: [positiveError],
+      output: classValidPositive
     },
     {
-      code: invalidNegative,
-      errors: [
-        {
-          message:
-            "unnecessary ternary conditional, use !{condition} && {consequent} instead"
-        }
-      ],
-      output: validNegative
+      code: functionInvalidPositive,
+      errors: [positiveError],
+      output: functionValidPositive
+    },
+    {
+      code: classInvalidNegative,
+      errors: [negativeError],
+      output: classValidNegative
+    },
+    {
+      code: functionInvalidNegative,
+      errors: [negativeError],
+      output: functionValidNegative
     }
   ]
 });

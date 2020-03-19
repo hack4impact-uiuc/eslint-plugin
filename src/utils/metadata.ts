@@ -1,12 +1,5 @@
 import { Rule } from "eslint";
 
-/**
- * Defines rule metadata.
- * @param ruleName the name of the rule.
- * @param ruleDescription a description of the rule.
- * @param fix if the code is fixable by code or whitespace (optional).
- * @returns the metadata object.
- */
 export const getRuleMetaData = (
   ruleName: string,
   ruleDescription: string,

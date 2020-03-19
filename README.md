@@ -20,7 +20,7 @@ npm install @h4iuiuc/eslint-plugin --save-dev
 
 To enable `@h4iuiuc/eslint-plugin`, you'll need to create a `.eslintrc.json` file for ESLint configuration.
 
-This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-react` through the `recommended` config (inspired by `eslint-config-react-app`).
+This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`, and `eslint-plugin-react-hooks` through the `recommended` config (inspired by `eslint-config-react-app`).
 
 For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file is the following:
 
@@ -31,7 +31,7 @@ For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file 
 }
 ```
 
-If your app uses TypeScript at all, you'll want to also extend the `typescript` config as follows:
+If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslint-plugin` by extending the `typescript` config as follows:
 
 ```json
 {
@@ -58,6 +58,14 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 
 ## Supported Rules
 
+### Rules
+
+| Rule                                                                                    | Default                   | Fixable            |
+| --------------------------------------------------------------------------------------- | ------------------------- | ------------------ |
+| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md)               | :triangular_flag_on_post: | :x:                |
+| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                                   | :triangular_flag_on_post: | :heavy_check_mark: |
+| [**no-anonymous-parameterless-props**](/docs/rules/no-anonymous-parameterless-props.md) | :triangular_flag_on_post: | :heavy_check_mark: |
+
 ### Key
 
 | Symbol                    | Meaning                     |
@@ -67,10 +75,3 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 | :heavy_multiplication_x:  | Off                         |
 | :heavy_check_mark:        | Fixable and autofix-enabled |
 | :x:                       | Not fixable                 |
-
-### Rules
-
-| Rule                                                                                    | Default                   | Fixable            |
-| --------------------------------------------------------------------------------------- | ------------------------- | ------------------ |
-| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                                   | :triangular_flag_on_post: | :heavy_check_mark: |
-| [**no-anonymous-parameterless-props**](/docs/rules/no-anonymous-parameterless-props.md) | :triangular_flag_on_post: | :heavy_check_mark: |

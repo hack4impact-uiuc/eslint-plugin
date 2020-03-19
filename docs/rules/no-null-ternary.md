@@ -1,18 +1,22 @@
 # no-null-ternary
 
-Forbids placing `null` on one side of a ternary operator inside a component's `render` method.
+Forbids placing `null` on one side of a ternary operator inside a JSX section.
 
 This rule is fixable using the `--fix` option.
 
 ## Examples
 
-### Good
+### Correct
 
 ```js
 class Example extends Component {
   render() {
     return <>{condition ? "Example" : "Other example"}</>;
   }
+}
+
+function Example() {
+  return <>{condition ? "Example" : "Other example"}</>;
 }
 ```
 
@@ -22,6 +26,10 @@ class Example extends Component {
     return <>{condition && "Example"}</>;
   }
 }
+
+function Example() {
+  return <>{condition && "Example"}</>;
+}
 ```
 
 ```js
@@ -30,23 +38,23 @@ class Example extends Component {
     return <>{!condition && "Example"}</>;
   }
 }
-```
 
-```js
-class Example extends Component {
-  notRender() {
-    return <>{condition ? "Example" : null}</>;
-  }
+function Example() {
+  return <>{!condition && "Example"}</>;
 }
 ```
 
-### Bad
+### Incorrect
 
 ```js
 class Example extends Component {
   render() {
     return <>{condition ? "Example" : null}</>;
   }
+}
+
+function Example() {
+  return <>{condition ? "Example" : null}</>;
 }
 ```
 
@@ -55,5 +63,9 @@ class Example extends Component {
   render() {
     return <>{condition ? null : "Example"}</>;
   }
+}
+
+function Example() {
+  return <>{condition ? null : "Example"}</>;
 }
 ```

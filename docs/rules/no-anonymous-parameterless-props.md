@@ -6,13 +6,17 @@ This rule is fixable using the `--fix` option.
 
 ## Examples
 
-### Good
+### Correct
 
 ```js
 class Example extends Component {
   render() {
     return <Button onClick={this.toggle}>Close</Button>;
   }
+}
+
+function Example() {
+  return <Button onClick={toggle}>Close</Button>;
 }
 ```
 
@@ -26,6 +30,10 @@ class Example extends Component {
     );
   }
 }
+
+function Example() {
+  return <Button onClick={() => setModal(!modal)}>Close</Button>;
+}
 ```
 
 ```js
@@ -34,17 +42,13 @@ class Example extends Component {
     return <Button onClick={e => e.preventDefault()}>Submit</Button>;
   }
 }
-```
 
-```js
-class Example extends Component {
-  render() {
-    return <Button onClick={toggle}>Close</Button>;
-  }
+function Example() {
+  return <Button onClick={e => e.preventDefault()}>Submit</Button>;
 }
 ```
 
-### Bad
+### Incorrect
 
 ```js
 class Example extends Component {
@@ -52,12 +56,8 @@ class Example extends Component {
     return <Button onClick={() => this.toggle()}>Close</Button>;
   }
 }
-```
 
-```js
-class Example extends Component {
-  render() {
-    return <Button onClick={() => toggle()}>Close</Button>;
-  }
+function Example() {
+  return <Button onClick={() => toggle()}>Close</Button>;
 }
 ```
