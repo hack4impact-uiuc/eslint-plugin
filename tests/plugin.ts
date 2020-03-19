@@ -1,18 +1,8 @@
-/**
- * @file Ensuring the plugin is properly structured
- */
-
 import plugin from "../src";
 import { describe, it, Test } from "mocha";
 import { assert } from "chai";
 import { existsSync, readFileSync } from "fs";
 
-/**
- * Verifies that each inputted rule is properly structured
- * @param ruleName the name of the rule to test
- * @param rules the ESLint plugin rules object containing all rule information
- * @throws chai assert errors if the provided rule is not configured properly
- */
 const testRule = (ruleName: string, rules: any): void => {
   describe(ruleName, (): void => {
     describe("docs", (): void => {
@@ -159,10 +149,6 @@ const testRule = (ruleName: string, rules: any): void => {
   });
 };
 
-/**
- * Verifies the structure of the plugin
- * @throws chai assert errors if the plugin is not configured properly
- */
 describe("plugin", (): void => {
   const { rules, configs } = plugin;
 
