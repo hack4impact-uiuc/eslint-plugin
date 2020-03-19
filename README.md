@@ -58,6 +58,14 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 
 ## Supported Rules
 
+### Rules
+
+| Rule                                                                                    | Default                   | Fixable            |
+| --------------------------------------------------------------------------------------- | ------------------------- | ------------------ |
+| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md)               | :triangular_flag_on_post: | :x:                |
+| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                                   | :triangular_flag_on_post: | :heavy_check_mark: |
+| [**no-anonymous-parameterless-props**](/docs/rules/no-anonymous-parameterless-props.md) | :triangular_flag_on_post: | :heavy_check_mark: |
+
 ### Key
 
 | Symbol                    | Meaning                     |
@@ -67,11 +75,3 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 | :heavy_multiplication_x:  | Off                         |
 | :heavy_check_mark:        | Fixable and autofix-enabled |
 | :x:                       | Not fixable                 |
-
-### Rules
-
-| Rule                                                                                    | Default                   | Fixable            |
-| --------------------------------------------------------------------------------------- | ------------------------- | ------------------ |
-| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md)               | :triangular_flag_on_post: | :x:                |
-| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                                   | :triangular_flag_on_post: | :heavy_check_mark: |
-| [**no-anonymous-parameterless-props**](/docs/rules/no-anonymous-parameterless-props.md) | :triangular_flag_on_post: | :heavy_check_mark: |
