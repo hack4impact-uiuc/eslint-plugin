@@ -1,7 +1,7 @@
 import rule from "../../src/rules/no-null-ternary";
 import { ruleTester } from "../tester";
 
-const validClassTernary = `class Example extends Component {
+const classValidTernary = `class Example extends Component {
   render() {
     return (
       <>
@@ -11,7 +11,7 @@ const validClassTernary = `class Example extends Component {
   }
 }`;
 
-const validFunctionTernary = `function Example() {
+const functionValidTernary = `function Example() {
   return (
     <>
       {condition ? "Example" : "Other example"}
@@ -19,7 +19,7 @@ const validFunctionTernary = `function Example() {
   )
 }`;
 
-const validClassPositive = `class Example extends Component {
+const classValidPositive = `class Example extends Component {
   render() {
     return (
       <>
@@ -29,7 +29,7 @@ const validClassPositive = `class Example extends Component {
   }
 }`;
 
-const validFunctionPositive = `function Example() {
+const functionValidPositive = `function Example() {
   return (
     <>
       {condition && "Example"}
@@ -37,7 +37,7 @@ const validFunctionPositive = `function Example() {
   )
 }`;
 
-const validClassNegative = `class Example extends Component {
+const classValidNegative = `class Example extends Component {
   render() {
     return (
       <>
@@ -47,7 +47,7 @@ const validClassNegative = `class Example extends Component {
   }
 }`;
 
-const validFunctionNegative = `function Example() {
+const functionValidNegative = `function Example() {
   return (
     <>
       {!condition && "Example"}
@@ -55,7 +55,7 @@ const validFunctionNegative = `function Example() {
   )
 }`;
 
-const invalidClassPositive = `class Example extends Component {
+const classInvalidPositive = `class Example extends Component {
   render() {
     return (
       <>
@@ -65,7 +65,7 @@ const invalidClassPositive = `class Example extends Component {
   }
 }`;
 
-const invalidFunctionPositive = `function Example() {
+const functionInvalidPositive = `function Example() {
   return (
     <>
       {condition ? "Example" : null}
@@ -73,7 +73,7 @@ const invalidFunctionPositive = `function Example() {
   )
 }`;
 
-const invalidClassNegative = `class Example extends Component {
+const classInvalidNegative = `class Example extends Component {
   render() {
     return (
       <>
@@ -83,7 +83,7 @@ const invalidClassNegative = `class Example extends Component {
   }
 }`;
 
-const invalidFunctionNegative = `function Example() {
+const functionInvalidNegative = `function Example() {
   return (
     <>
       {condition ? null : "Example"}
@@ -104,38 +104,38 @@ const negativeError = {
 ruleTester.run("no-null-ternary", rule, {
   valid: [
     {
-      code: validClassTernary
+      code: classValidTernary
     },
-    { code: validFunctionTernary },
+    { code: functionValidTernary },
     {
-      code: validClassPositive
+      code: classValidPositive
     },
-    { code: validFunctionPositive },
+    { code: functionValidPositive },
     {
-      code: validClassNegative
+      code: classValidNegative
     },
-    { code: validFunctionNegative }
+    { code: functionValidNegative }
   ],
   invalid: [
     {
-      code: invalidClassPositive,
+      code: classInvalidPositive,
       errors: [positiveError],
-      output: validClassPositive
+      output: classValidPositive
     },
     {
-      code: invalidFunctionPositive,
+      code: functionInvalidPositive,
       errors: [positiveError],
-      output: validFunctionPositive
+      output: functionValidPositive
     },
     {
-      code: invalidClassNegative,
+      code: classInvalidNegative,
       errors: [negativeError],
-      output: validClassNegative
+      output: classValidNegative
     },
     {
-      code: invalidFunctionNegative,
+      code: functionInvalidNegative,
       errors: [negativeError],
-      output: validFunctionNegative
+      output: functionValidNegative
     }
   ]
 });

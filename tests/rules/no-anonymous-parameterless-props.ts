@@ -1,53 +1,53 @@
 import rule from "../../src/rules/no-anonymous-parameterless-props";
 import { ruleTester } from "../tester";
 
-const validClassIdentifier = `class Example extends Component {
+const classValidIdentifier = `class Example extends Component {
   render() {
     return <Button onClick={this.toggle}>Close</Button>;
   }
 }`;
 
-const validFunctionIdentifier = `function Example() {
+const functionValidIdentifier = `function Example() {
   return <Button onClick={toggle}>Close</Button>;
 }`;
 
-const validClassAnonymous = `class Example extends Component {
+const classValidAnonymous = `class Example extends Component {
   render() {
     return <Button onClick={() => this.setState({modal: !this.state.modal})}>Close</Button>;
   }
 }`;
 
-const validFunctionAnonymous = `function Example() {
+const functionValidAnonymous = `function Example() {
   return <Button onClick={() => setModal(!modal)}>Close</Button>;
 }`;
 
-const validClassPreventDefault = `class Example extends Component {
+const classValidPreventDefault = `class Example extends Component {
   render() {
     return <Button onClick={e => e.preventDefault()}>Submit</Button>;
   }
 }`;
 
-const validFunctionPreventDefault = `function Example() {
+const functionValidPreventDefault = `function Example() {
   return <Button onClick={e => e.preventDefault()}>Submit</Button>;
 }`;
 
-const validClassNoThis = `class Example extends Component {
+const classValidNoThis = `class Example extends Component {
   render() {
     return <Button onClick={toggle}>Close</Button>;
   }
 }`;
 
-const invalidClass = `class Example extends Component {
+const classInValid = `class Example extends Component {
   render() {
     return <Button onClick={() => this.toggle()}>Close</Button>;
   }
 }`;
 
-const invalidFunction = `function Example() {
+const functionInValid = `function Example() {
   return <Button onClick={() => toggle()}>Close</Button>;
 }`;
 
-const invalidClassNoThis = `class Example extends Component {
+const classInValidNoThis = `class Example extends Component {
   render() {
     return <Button onClick={() => toggle()}>Close</Button>;
   }
@@ -61,32 +61,32 @@ const error = {
 ruleTester.run("no-anonymous-parameterless-props", rule, {
   valid: [
     {
-      code: validClassIdentifier
+      code: classValidIdentifier
     },
-    { code: validFunctionIdentifier },
+    { code: functionValidIdentifier },
     {
-      code: validClassAnonymous
+      code: classValidAnonymous
     },
-    { code: validFunctionAnonymous },
-    { code: validClassPreventDefault },
-    { code: validFunctionPreventDefault },
-    { code: validClassNoThis }
+    { code: functionValidAnonymous },
+    { code: classValidPreventDefault },
+    { code: functionValidPreventDefault },
+    { code: classValidNoThis }
   ],
   invalid: [
     {
-      code: invalidClass,
+      code: classInValid,
       errors: [error],
-      output: validClassIdentifier
+      output: classValidIdentifier
     },
     {
-      code: invalidFunction,
+      code: functionInValid,
       errors: [error],
-      output: validFunctionIdentifier
+      output: functionValidIdentifier
     },
     {
-      code: invalidClassNoThis,
+      code: classInValidNoThis,
       errors: [error],
-      output: validClassNoThis
+      output: classValidNoThis
     }
   ]
 });

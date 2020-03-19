@@ -4,7 +4,8 @@ import {
   CallExpression,
   ObjectExpression,
   Identifier,
-  Node
+  Node,
+  Function
 } from "estree";
 import { getRuleMetaData } from "../utils";
 import { simpleTraverse, TSESTree } from "@typescript-eslint/typescript-estree";
@@ -25,9 +26,8 @@ const addModifiedState = (
 
 export default {
   meta: getRuleMetaData(
-    "no-get-state-after-set",
-    "disallows access of React state variables after they have been set in a useEffect function body",
-    "code"
+    "no-access-state-after-set",
+    "disallows access of React state variables after they have been set in a useEffect function body"
   ),
 
   create: (context: Rule.RuleContext): Rule.RuleListener =>
@@ -37,7 +37,7 @@ export default {
       Function component - (function -> useState) -> collect all state variables -> look in all useEffects and declarations - then same as above but look at state variables
       */
 
-      "BlockStatement CallExpression[callee.name='setState']": (
+      "ClassDeclaration :matches(CallExpression[callee.property.name='setState'], CallExpression[callee.name='setState'])": (
         node: CallExpression
       ): void => {
         const modifiedState: Set<string> = new Set();
@@ -52,8 +52,8 @@ export default {
           simpleTraverse(stateArg.body as TSESTree.Node, {
             enter: (child, parent) => {
               if (
-                child.type !== "ObjectExpression" ||
-                (parent?.type !== "ReturnStatement" && parent !== stateArg.body)
+                child.type === "ObjectExpression" &&
+                (parent === undefined || parent.type === "ReturnStatement")
               ) {
                 addModifiedState(child as ObjectExpression, modifiedState);
               }
@@ -62,12 +62,16 @@ export default {
         }
 
         const ancestors = context.getAncestors();
-
-        const block: BlockStatement = ancestors.find(
-          ancestor => ancestor.type === "BlockStatement"
-        ) as BlockStatement;
+        const func: Function = ancestors
+          .reverse()
+          .find(
+            ancestor =>
+              ancestor.type === "FunctionDeclaration" ||
+              ancestor.type === "FunctionExpression" ||
+              ancestor.type === "ArrowFunctionExpression"
+          ) as Function;
+        const block = func.body as BlockStatement;
         const { body } = block;
-
         const setStateIndex = body.findIndex(bodyItem =>
           ancestors.includes(bodyItem)
         );

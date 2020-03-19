@@ -17,54 +17,62 @@ const testRule = (ruleName: string, rules: any): void => {
   describe(ruleName, (): void => {
     describe("docs", (): void => {
       const docsFilePath = `docs/rules/${ruleName}.md`;
+      const fileExists = existsSync(docsFilePath);
 
-      it(`${docsFilePath} should exist`, (): void =>
-        assert.isTrue(existsSync(docsFilePath)));
+      it(`${docsFilePath} should exist`, (): void => assert.isTrue(fileExists));
 
-      const docsFileContent = readFileSync(docsFilePath, { encoding: "utf8" });
+      if (fileExists) {
+        const docsFileContent = readFileSync(docsFilePath, {
+          encoding: "utf8"
+        });
 
-      it(`${ruleName} docs should have a header`, (): void =>
-        assert.match(docsFileContent, new RegExp(`^# ${ruleName}\n\n`)));
+        it(`${ruleName} docs should have a header`, (): void =>
+          assert.match(docsFileContent, new RegExp(`^# ${ruleName}\n\n`)));
 
-      it(`${ruleName} docs should have examples`, (): void =>
-        assert.match(docsFileContent, /## Examples\n\n/));
+        it(`${ruleName} docs should have examples`, (): void =>
+          assert.match(docsFileContent, /## Examples\n\n/));
 
-      it(`${ruleName} docs should have at least one correct example`, (): void =>
-        assert.match(
-          docsFileContent,
-          /### Correct\n\n(```js(.|\n)*```\n(.|\n)*)+/
-        ));
+        it(`${ruleName} docs should have at least one correct example`, (): void =>
+          assert.match(
+            docsFileContent,
+            /### Correct\n\n(```js(.|\n)*```\n(.|\n)*)+/
+          ));
 
-      it(`${ruleName} docs should have at least one incorrect example`, (): void =>
-        assert.match(
-          docsFileContent,
-          /### Incorrect\n\n(```js(.|\n)*```\n(.|\n)*)+/
-        ));
+        it(`${ruleName} docs should have at least one incorrect example`, (): void =>
+          assert.match(
+            docsFileContent,
+            /### Incorrect\n\n(```js(.|\n)*```\n(.|\n)*)+/
+          ));
+      }
     });
 
     describe("tests", (): void => {
       const testsFilePath = `tests/rules/${ruleName}.ts`;
+      const fileExists = existsSync(testsFilePath);
+
       it(`${testsFilePath} should exist`, (): void =>
-        assert.isTrue(existsSync(testsFilePath)));
+        assert.isTrue(fileExists));
 
-      const testsFileContent = readFileSync(testsFilePath, {
-        encoding: "utf8"
-      });
+      if (fileExists) {
+        const testsFileContent = readFileSync(testsFilePath, {
+          encoding: "utf8"
+        });
 
-      it(`${ruleName} tests use RuleTester`, (): void =>
-        assert.match(testsFileContent, /ruleTester.run/));
+        it(`${ruleName} tests use RuleTester`, (): void =>
+          assert.match(testsFileContent, /ruleTester.run/));
 
-      it(`${ruleName} tests have at least one valid test case`, (): void =>
-        assert.match(
-          testsFileContent,
-          /valid: \[((.|\n)*{(.|\n)*}(.|\n)*)+\]/
-        ));
+        it(`${ruleName} tests have at least one valid test case`, (): void =>
+          assert.match(
+            testsFileContent,
+            /valid: \[((.|\n)*{(.|\n)*}(.|\n)*)+\]/
+          ));
 
-      it(`${ruleName} tests have at least one invalid test case`, (): void =>
-        assert.match(
-          testsFileContent,
-          /invalid: \[((.|\n)*{(.|\n)*}(.|\n)*)+\]/
-        ));
+        it(`${ruleName} tests have at least one invalid test case`, (): void =>
+          assert.match(
+            testsFileContent,
+            /invalid: \[((.|\n)*{(.|\n)*}(.|\n)*)+\]/
+          ));
+      }
     });
 
     const rule = rules[ruleName];
