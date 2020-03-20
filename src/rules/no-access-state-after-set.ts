@@ -11,7 +11,7 @@ import {
 import { getRuleMetaData } from "../utils";
 import { simpleTraverse, TSESTree } from "@typescript-eslint/typescript-estree";
 
-export default {
+export = {
   meta: getRuleMetaData(
     "no-access-state-after-set",
     "disallows access of React state variables after they have been set in a useEffect function body"

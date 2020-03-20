@@ -2,7 +2,7 @@ import { Rule } from "eslint";
 import { ConditionalExpression } from "estree";
 import { getRuleMetaData } from "../utils";
 
-export default {
+export = {
   meta: getRuleMetaData(
     "no-null-ternary",
     "forbid ternary conditional operators where one side is null",
