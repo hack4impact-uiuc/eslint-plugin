@@ -5,8 +5,7 @@ import {
   Function,
   Identifier,
   Node,
-  ObjectExpression,
-  Statement
+  ObjectExpression
 } from "estree";
 import { getRuleMetaData } from "../utils";
 import { simpleTraverse, TSESTree } from "@typescript-eslint/typescript-estree";
@@ -180,12 +179,13 @@ export = {
               next = next.parent;
             }
 
-            const block: BlockStatement = next as BlockStatement;
-            const { body } = block;
-            const topLevel: Statement = prev as Statement;
+            if (next.type !== "BlockStatement") {
+              return;
+            }
 
+            const { body } = next;
             // isolate function body after useState setter call
-            const useStateIndex = body.indexOf(topLevel);
+            const useStateIndex = body.indexOf(prev as TSESTree.Statement);
             const postUseState = body.slice(useStateIndex);
 
             // if identifier shares name with modified field, report
