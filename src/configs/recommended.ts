@@ -50,7 +50,7 @@ export = {
     "prefer-template": "error",
     "react/destructuring-assignment": ["error", "always"],
     "react/jsx-boolean-value": ["warn", "never"],
-    "react/jsx-filename-extension": "warn",
+    "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],
     "react/jsx-pascal-case": "warn",
     "react/no-access-state-in-setstate": "error",
     "react/no-typos": "error",
