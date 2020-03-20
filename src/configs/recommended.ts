@@ -14,8 +14,7 @@ export = {
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react/recommended"
   ],
   settings: {
     react: {
@@ -49,7 +48,7 @@ export = {
     "prefer-rest-params": "error",
     "prefer-spread": "error",
     "prefer-template": "error",
-    "react/destructuring-assignment": "always",
+    "react/destructuring-assignment": ["error", "always"],
     "react/jsx-boolean-value": ["warn", "never"],
     "react/jsx-filename-extension": "warn",
     "react/jsx-pascal-case": "warn",
@@ -58,6 +57,8 @@ export = {
     "react/no-unescaped-entities": "off",
     "react/prop-types": "off",
     "react/style-prop-object": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "require-await": "error"
   }
 };
