@@ -186,7 +186,7 @@ export = {
             const { body } = next;
             // isolate function body after useState setter call
             const useStateIndex = body.indexOf(prev as TSESTree.Statement);
-            const postUseState = body.slice(useStateIndex);
+            const postUseState = body.slice(useStateIndex + 1);
 
             // if identifier shares name with modified field, report
             postUseState.forEach(statement =>

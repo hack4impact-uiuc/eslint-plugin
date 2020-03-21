@@ -196,6 +196,16 @@ const functionValidArrowExpression = `function Example() {
   return <></>;
 }`;
 
+const functionValidSetterGet = `function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    setExample(!example);
+  };
+
+  return <></>;
+}`;
+
 const classInvalid = `class Example extends Component {
   componentDidMount() {
     const example = "Example";
@@ -377,7 +387,8 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: classValidUpdater },
     { code: functionValidDeclaration },
     { code: functionValidExpression },
-    { code: functionValidArrowExpression }
+    { code: functionValidArrowExpression },
+    { code: functionValidSetterGet }
   ],
   invalid: [
     {
