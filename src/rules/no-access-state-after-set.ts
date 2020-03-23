@@ -16,8 +16,10 @@ export = {
     "disallows access of React state variables after they have been set in a useEffect function body"
   ),
 
-  create: (context: Rule.RuleContext): Rule.RuleListener =>
-    ({
+  create: (context: Rule.RuleContext): Rule.RuleListener => {
+    const seenFunctions: Set<Function> = new Set();
+
+    return {
       "ClassDeclaration :matches(CallExpression[callee.property.name='setState'], CallExpression[callee.name='setState'])": (
         node: CallExpression
       ): void => {
@@ -28,6 +30,10 @@ export = {
           modifiedState: Set<string>
         ): void => {
           state.properties.forEach((property) => {
+            if (property.type === "SpreadElement") {
+              return;
+            }
+
             const { key } = property;
             if (key.type === "Literal") {
               modifiedState.add(key.value as string);
@@ -117,6 +123,13 @@ export = {
               ancestor.type === "FunctionExpression" ||
               ancestor.type === "ArrowFunctionExpression"
           ) as Function;
+
+        // check to see if component has been evaluated already
+        if (seenFunctions.has(func)) {
+          return;
+        }
+        seenFunctions.add(func);
+
         const block = func.body;
         if (block.type !== "BlockStatement") {
           return;
@@ -237,5 +250,6 @@ export = {
           }
         });
       },
-    } as Rule.RuleListener),
+    } as Rule.RuleListener;
+  },
 };
