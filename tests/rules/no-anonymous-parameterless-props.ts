@@ -55,38 +55,38 @@ const classInValidNoThis = `class Example extends Component {
 
 const error = {
   message:
-    "parameterless functions used as props should be passed in by their identifiers"
+    "parameterless functions used as props should be passed in by their identifiers",
 };
 
 ruleTester.run("no-anonymous-parameterless-props", rule, {
   valid: [
     {
-      code: classValidIdentifier
+      code: classValidIdentifier,
     },
     { code: functionValidIdentifier },
     {
-      code: classValidAnonymous
+      code: classValidAnonymous,
     },
     { code: functionValidAnonymous },
     { code: classValidPreventDefault },
     { code: functionValidPreventDefault },
-    { code: classValidNoThis }
+    { code: classValidNoThis },
   ],
   invalid: [
     {
       code: classInValid,
       errors: [error],
-      output: classValidIdentifier
+      output: classValidIdentifier,
     },
     {
       code: functionInValid,
       errors: [error],
-      output: functionValidIdentifier
+      output: functionValidIdentifier,
     },
     {
       code: classInValidNoThis,
       errors: [error],
-      output: classValidNoThis
-    }
-  ]
+      output: classValidNoThis,
+    },
+  ],
 });

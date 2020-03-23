@@ -27,7 +27,7 @@ export = {
               `${sourceCode.getText(node.test)} && ${sourceCode.getText(
                 node.consequent
               )}`
-            )
+            ),
         }),
 
       // look for null on left-hand side
@@ -44,8 +44,8 @@ export = {
               `!${sourceCode.getText(node.test)} && ${sourceCode.getText(
                 node.alternate
               )}`
-            )
-        })
+            ),
+        }),
     } as Rule.RuleListener;
-  }
+  },
 };

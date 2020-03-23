@@ -3,15 +3,15 @@ export = {
   extends: [
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
   ],
   rules: {
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {
-        allowExpressions: true
-      }
+        allowExpressions: true,
+      },
     ],
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/indent": "off",
@@ -19,10 +19,10 @@ export = {
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        ignore: [0, 1]
-      }
+        ignore: [0, 1],
+      },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",
-    "no-magic-numbers": "off"
-  }
+    "no-magic-numbers": "off",
+  },
 };

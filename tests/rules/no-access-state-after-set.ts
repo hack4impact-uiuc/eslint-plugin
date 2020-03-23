@@ -363,12 +363,12 @@ const functionInvalidArrowExpression = `function Example() {
 
 const classError = {
   message:
-    "state fields modified by a setState call should not be accessed afterwards in the same block"
+    "state fields modified by a setState call should not be accessed afterwards in the same block",
 };
 
 const functionError = {
   message:
-    "state fields modified by a useState setter call should not be accessed afterwards in the same block"
+    "state fields modified by a useState setter call should not be accessed afterwards in the same block",
 };
 
 ruleTester.run("no-access-state-after-set", rule, {
@@ -388,32 +388,32 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionValidDeclaration },
     { code: functionValidExpression },
     { code: functionValidArrowExpression },
-    { code: functionValidSetterGet }
+    { code: functionValidSetterGet },
   ],
   invalid: [
     {
       code: classInvalid,
-      errors: [classError]
+      errors: [classError],
     },
     { code: functionInvalid, errors: [functionError] },
     { code: classInvalidNested, errors: [classError] },
     { code: functionInvalidNested, errors: [functionError] },
     {
       code: classInvalidMultiple,
-      errors: [classError, classError]
+      errors: [classError, classError],
     },
     { code: functionInvalidMultiple, errors: [functionError, functionError] },
     {
       code: classInvalidDestructureSetstate,
-      errors: [classError]
+      errors: [classError],
     },
     {
       code: classInvalidDestructureState,
-      errors: [classError]
+      errors: [classError],
     },
     { code: classInvalidUpdater, errors: [classError] },
     { code: functionInvalidDeclaration, errors: [functionError] },
     { code: functionInvalidExpression, errors: [functionError] },
-    { code: functionInvalidArrowExpression, errors: [functionError] }
-  ]
+    { code: functionInvalidArrowExpression, errors: [functionError] },
+  ],
 });

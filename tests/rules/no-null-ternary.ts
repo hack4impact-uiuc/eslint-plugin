@@ -93,49 +93,49 @@ const functionInvalidNegative = `function Example() {
 
 const positiveError = {
   message:
-    "unnecessary ternary conditional, use {condition} && {consequent} instead"
+    "unnecessary ternary conditional, use {condition} && {consequent} instead",
 };
 
 const negativeError = {
   message:
-    "unnecessary ternary conditional, use !{condition} && {consequent} instead"
+    "unnecessary ternary conditional, use !{condition} && {consequent} instead",
 };
 
 ruleTester.run("no-null-ternary", rule, {
   valid: [
     {
-      code: classValidTernary
+      code: classValidTernary,
     },
     { code: functionValidTernary },
     {
-      code: classValidPositive
+      code: classValidPositive,
     },
     { code: functionValidPositive },
     {
-      code: classValidNegative
+      code: classValidNegative,
     },
-    { code: functionValidNegative }
+    { code: functionValidNegative },
   ],
   invalid: [
     {
       code: classInvalidPositive,
       errors: [positiveError],
-      output: classValidPositive
+      output: classValidPositive,
     },
     {
       code: functionInvalidPositive,
       errors: [positiveError],
-      output: functionValidPositive
+      output: functionValidPositive,
     },
     {
       code: classInvalidNegative,
       errors: [negativeError],
-      output: classValidNegative
+      output: classValidNegative,
     },
     {
       code: functionInvalidNegative,
       errors: [negativeError],
-      output: functionValidNegative
-    }
-  ]
+      output: functionValidNegative,
+    },
+  ],
 });

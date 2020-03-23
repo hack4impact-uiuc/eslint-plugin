@@ -5,7 +5,7 @@ import {
   Function,
   Identifier,
   Node,
-  ObjectExpression
+  ObjectExpression,
 } from "estree";
 import { getRuleMetaData } from "../utils";
 import { simpleTraverse, TSESTree } from "@typescript-eslint/typescript-estree";
@@ -27,7 +27,7 @@ export = {
           state: ObjectExpression,
           modifiedState: Set<string>
         ): void => {
-          state.properties.forEach(property => {
+          state.properties.forEach((property) => {
             const { key } = property;
             if (key.type === "Literal") {
               modifiedState.add(key.value as string);
@@ -53,7 +53,7 @@ export = {
               ) {
                 addModifiedState(child as ObjectExpression, modifiedState);
               }
-            }
+            },
           });
         }
 
@@ -62,7 +62,7 @@ export = {
         const func: Function = ancestors
           .reverse()
           .find(
-            ancestor =>
+            (ancestor) =>
               ancestor.type === "FunctionDeclaration" ||
               ancestor.type === "FunctionExpression" ||
               ancestor.type === "ArrowFunctionExpression"
@@ -71,13 +71,13 @@ export = {
         const { body } = block;
 
         // isolate the part of the function body after the setState call
-        const setStateIndex = body.findIndex(bodyItem =>
+        const setStateIndex = body.findIndex((bodyItem) =>
           ancestors.includes(bodyItem)
         );
         const postSetStateBody = body.slice(setStateIndex + 1);
 
         // if it follows the pattern '...state.<field>', report if field is modified
-        postSetStateBody.forEach(bodyItem => {
+        postSetStateBody.forEach((bodyItem) => {
           simpleTraverse(bodyItem as TSESTree.Node, {
             enter: (child, parent) => {
               if (
@@ -98,11 +98,11 @@ export = {
                   context.report({
                     node: parent as Node,
                     message:
-                      "state fields modified by a setState call should not be accessed afterwards in the same block"
+                      "state fields modified by a setState call should not be accessed afterwards in the same block",
                   });
                 }
               }
-            }
+            },
           });
         });
       },
@@ -112,7 +112,7 @@ export = {
         const func: Function = context
           .getAncestors()
           .find(
-            ancestor =>
+            (ancestor) =>
               ancestor.type === "FunctionDeclaration" ||
               ancestor.type === "FunctionExpression" ||
               ancestor.type === "ArrowFunctionExpression"
@@ -131,9 +131,9 @@ export = {
         const useStateArrayLength = 2;
 
         // look for all useState declarations and add them to state trackers
-        body.forEach(statement => {
+        body.forEach((statement) => {
           if (statement.type === "VariableDeclaration") {
-            statement.declarations.forEach(declaration => {
+            statement.declarations.forEach((declaration) => {
               if (
                 declaration.init?.type === "CallExpression" &&
                 declaration.init.callee.type === "Identifier" &&
@@ -189,9 +189,9 @@ export = {
             const postUseState = body.slice(useStateIndex + 1);
 
             // if identifier shares name with modified field, report
-            postUseState.forEach(statement =>
+            postUseState.forEach((statement) =>
               simpleTraverse(statement as TSESTree.Node, {
-                enter: postChild => {
+                enter: (postChild) => {
                   if (
                     postChild.type === "Identifier" &&
                     postChild.name === modifiedField
@@ -199,20 +199,20 @@ export = {
                     context.report({
                       node: postChild,
                       message:
-                        "state fields modified by a useState setter call should not be accessed afterwards in the same block"
+                        "state fields modified by a useState setter call should not be accessed afterwards in the same block",
                     });
                   }
-                }
+                },
               })
             );
           }
         };
 
         // account for different function syntax
-        body.forEach(statement => {
+        body.forEach((statement) => {
           if (statement.type === "FunctionDeclaration") {
             simpleTraverse(statement.body as TSESTree.Node, {
-              enter: (child, parent) => functionTraverse(child, parent)
+              enter: (child, parent) => functionTraverse(child, parent),
             });
           } else if (
             statement.type === "ExpressionStatement" &&
@@ -221,21 +221,21 @@ export = {
             statement.expression.callee.name === "useEffect"
           ) {
             simpleTraverse(statement.expression.arguments[0] as TSESTree.Node, {
-              enter: (child, parent) => functionTraverse(child, parent)
+              enter: (child, parent) => functionTraverse(child, parent),
             });
           } else if (statement.type === "VariableDeclaration") {
-            statement.declarations.forEach(declaration => {
+            statement.declarations.forEach((declaration) => {
               if (
                 declaration.init?.type === "FunctionExpression" ||
                 declaration.init?.type === "ArrowFunctionExpression"
               ) {
                 simpleTraverse(declaration.init.body as TSESTree.Node, {
-                  enter: (child, parent) => functionTraverse(child, parent)
+                  enter: (child, parent) => functionTraverse(child, parent),
                 });
               }
             });
           }
         });
-      }
-    } as Rule.RuleListener)
+      },
+    } as Rule.RuleListener),
 };

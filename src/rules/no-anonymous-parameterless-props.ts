@@ -35,7 +35,7 @@ export = {
             node,
             message: reportMessage,
             fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-              fixer.replaceText(node, `this.${functionIdentifier.name}`)
+              fixer.replaceText(node, `this.${functionIdentifier.name}`),
           });
         } else if (callee.type === "Identifier") {
           // () => foo()
@@ -43,9 +43,9 @@ export = {
             node,
             message: reportMessage,
             fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-              fixer.replaceText(node, callee.name)
+              fixer.replaceText(node, callee.name),
           });
         }
-      }
-    } as Rule.RuleListener)
+      },
+    } as Rule.RuleListener),
 };

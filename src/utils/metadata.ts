@@ -11,9 +11,9 @@ export const getRuleMetaData = (
       description: ruleDescription,
       category: "Best Practices",
       recommended: true,
-      url: `https://github.com/hack4impact-uiuc/eslint-plugin/blob/master/docs/rules/${ruleName}.md`
+      url: `https://github.com/hack4impact-uiuc/eslint-plugin/blob/master/docs/rules/${ruleName}.md`,
     },
-    schema: []
+    schema: [],
   };
   return (fix !== undefined
     ? { ...required, fixable: fix }

@@ -172,7 +172,7 @@ class Example extends Component {
 class Example extends Component {
   componentDidMount() {
     const example = "Example";
-    this.setState(prevState => ({ example }));
+    this.setState((prevState) => ({ example }));
     console.log(example);
   }
 
@@ -342,7 +342,7 @@ class Example extends Component {
 class Example extends Component {
   componentDidMount() {
     const example = "Example";
-    this.setState(prevState => ({ example }));
+    this.setState((prevState) => ({ example }));
     console.log(this.state.example);
   }
 
@@ -368,7 +368,7 @@ function Example() {
 function Example() {
   const [example, setExample] = useState(null);
 
-  const updateExample = function() {
+  const updateExample = function () {
     const newExample = "Example";
     setExample(newExample);
     console.log(example);

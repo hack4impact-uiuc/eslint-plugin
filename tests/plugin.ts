@@ -13,7 +13,7 @@ const testRule = (ruleName: string, rules: any): void => {
 
       if (fileExists) {
         const docsFileContent = readFileSync(docsFilePath, {
-          encoding: "utf8"
+          encoding: "utf8",
         });
 
         it(`${ruleName} docs should have a header`, (): void =>
@@ -45,7 +45,7 @@ const testRule = (ruleName: string, rules: any): void => {
 
       if (fileExists) {
         const testsFileContent = readFileSync(testsFilePath, {
-          encoding: "utf8"
+          encoding: "utf8",
         });
 
         it(`${ruleName} tests use RuleTester`, (): void =>
@@ -156,7 +156,7 @@ describe("plugin", (): void => {
     it("rules should be a member of the plugin", (): void =>
       assert.property(plugin, "rules", "rules is not a member of the plugin"));
 
-    Object.keys(rules).forEach(ruleName => testRule(ruleName, rules));
+    Object.keys(rules).forEach((ruleName) => testRule(ruleName, rules));
   });
 
   describe("configs", (): void => {

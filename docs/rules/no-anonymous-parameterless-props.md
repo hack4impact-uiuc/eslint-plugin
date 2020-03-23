@@ -39,12 +39,12 @@ function Example() {
 ```js
 class Example extends Component {
   render() {
-    return <Button onClick={e => e.preventDefault()}>Submit</Button>;
+    return <Button onClick={(e) => e.preventDefault()}>Submit</Button>;
   }
 }
 
 function Example() {
-  return <Button onClick={e => e.preventDefault()}>Submit</Button>;
+  return <Button onClick={(e) => e.preventDefault()}>Submit</Button>;
 }
 ```
 

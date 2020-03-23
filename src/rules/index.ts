@@ -5,5 +5,5 @@ import noNullTernary from "./no-null-ternary";
 export = {
   "no-access-state-after-set": noAccessStateAfterSet,
   "no-anonymous-parameterless-props": noAnonymousParameterlessProps,
-  "no-null-ternary": noNullTernary
+  "no-null-ternary": noNullTernary,
 };

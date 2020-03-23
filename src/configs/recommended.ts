@@ -2,32 +2,32 @@ export = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
   env: {
     browser: true,
     es6: true,
     es2017: true,
     es2020: true,
-    node: true
+    node: true,
   },
   plugins: ["import", "jsx-a11y", "react", "react-hooks"],
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
   ],
   settings: {
     react: {
-      version: "detect"
+      version: "detect",
     },
     "import/resolver": {
       node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
   },
   rules: {
     "@h4iuiuc/no-access-state-after-set": "error",
@@ -63,6 +63,6 @@ export = {
     "react/style-prop-object": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "require-await": "error"
-  }
+    "require-await": "error",
+  },
 };
