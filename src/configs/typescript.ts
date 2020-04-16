@@ -19,7 +19,7 @@ export = {
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        ignore: [0, 1],
+        ignore: [0, 1, 60, 100],
       },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",

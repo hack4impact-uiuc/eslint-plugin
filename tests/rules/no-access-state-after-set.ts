@@ -206,6 +206,18 @@ const functionValidSetterGet = `function Example() {
   return <></>;
 }`;
 
+const functionValidUseEffect = `function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    const newExample = !example;
+    setExample(newExample);
+    console.log(newExample);
+  }, [example, setExample]);
+
+  return <></>;
+}`;
+
 const classInvalid = `class Example extends Component {
   componentDidMount() {
     const example = "Example";
@@ -361,6 +373,18 @@ const functionInvalidArrowExpression = `function Example() {
   return <></>;
 }`;
 
+const functionInvalidUseEffect = `function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    const newExample = !example;
+    setExample(newExample);
+    console.log(example);
+  }, [example, setExample]);
+
+  return <></>;
+}`;
+
 const classError = {
   message:
     "state fields modified by a setState call should not be accessed afterwards in the same block",
@@ -389,6 +413,7 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionValidExpression },
     { code: functionValidArrowExpression },
     { code: functionValidSetterGet },
+    { code: functionValidUseEffect },
   ],
   invalid: [
     {
@@ -415,5 +440,6 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionInvalidDeclaration, errors: [functionError] },
     { code: functionInvalidExpression, errors: [functionError] },
     { code: functionInvalidArrowExpression, errors: [functionError] },
+    { code: functionInvalidUseEffect, errors: [functionError] },
   ],
 });
