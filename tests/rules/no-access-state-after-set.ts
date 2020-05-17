@@ -165,8 +165,6 @@ const functionValidIf = `function Example() {
   return <></>;
 }`;
 
-// TODO: add a .then
-
 const classValidDestructureSetstate = `class Example extends Component {
   componentDidMount() {
     const { setState } = this;
@@ -359,7 +357,33 @@ const functionInvalidIf = `function Example() {
   return <></>;
 }`;
 
-// TODO: add a .then
+const classInvalidThen = `class Example extends Component {
+  componentDidMount() {
+    const example = "Example";
+    getData().then(() => {
+      this.setState({example});
+    });
+    console.log(this.state.example);
+  }
+  
+  render() {
+    return <></>;
+  }
+}`;
+
+const functionInvalidThen = `function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    const example = "Example";
+    getData().then((newExample) => {
+      setExample(newExample)
+    });
+    console.log(example);
+  };
+
+  return <></>;
+}`;
 
 const classInvalidDestructureSetstate = `class Example extends Component {
   componentDidMount() {
@@ -494,6 +518,8 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionInvalidMultiple, errors: [functionError, functionError] },
     { code: classInvalidIf, errors: [classError] },
     { code: functionInvalidIf, errors: [functionError] },
+    { code: classInvalidThen, errors: [classError] },
+    { code: functionInvalidThen, errors: [functionError] },
     {
       code: classInvalidDestructureSetstate,
       errors: [classError],
@@ -502,7 +528,6 @@ ruleTester.run("no-access-state-after-set", rule, {
       code: classInvalidDestructureState,
       errors: [classError],
     },
-
     { code: classInvalidUpdater, errors: [classError] },
     { code: functionInvalidDeclaration, errors: [functionError] },
     { code: functionInvalidExpression, errors: [functionError] },
