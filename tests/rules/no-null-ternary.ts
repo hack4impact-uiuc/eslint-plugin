@@ -1,95 +1,71 @@
 import rule from "../../src/rules/no-null-ternary";
 import { ruleTester } from "../tester";
 
-const classValidTernary = `class Example extends Component {
+const generateTest = (
+  componentType: "class" | "function",
+  body: string
+): string =>
+  componentType === "class"
+    ? `class Example extends Component {
   render() {
     return (
       <>
-        {condition ? "Example" : "Other example"}
+        {${body}}
       </>
     )
   }
-}`;
-
-const functionValidTernary = `function Example() {
+}`
+    : `function Example() {
   return (
     <>
-      {condition ? "Example" : "Other example"}
+      {${body}}
     </>
   )
 }`;
 
-const classValidPositive = `class Example extends Component {
-  render() {
-    return (
-      <>
-        {condition && "Example"}
-      </>
-    )
-  }
-}`;
+const classValidTernary = generateTest(
+  "class",
+  'condition ? "Example" : "Other example"'
+);
 
-const functionValidPositive = `function Example() {
-  return (
-    <>
-      {condition && "Example"}
-    </>
-  )
-}`;
+const functionValidTernary = generateTest(
+  "function",
+  'condition ? "Example" : "Other example"'
+);
 
-const classValidNegative = `class Example extends Component {
-  render() {
-    return (
-      <>
-        {!condition && "Example"}
-      </>
-    )
-  }
-}`;
+const classValidPositive = generateTest("class", 'condition && "Example"');
 
-const functionValidNegative = `function Example() {
-  return (
-    <>
-      {!condition && "Example"}
-    </>
-  )
-}`;
+const functionValidPositive = generateTest(
+  "function",
+  'condition && "Example"'
+);
 
-const classInvalidPositive = `class Example extends Component {
-  render() {
-    return (
-      <>
-        {condition ? "Example" : null}
-      </>
-    )
-  }
-}`;
+const classValidNegative = generateTest("class", '!condition && "Example"');
 
-const functionInvalidPositive = `function Example() {
-  return (
-    <>
-      {condition ? "Example" : null}
-    </>
-  )
-}`;
+const functionValidNegative = generateTest(
+  "function",
+  '!condition && "Example"'
+);
 
-const classInvalidNegative = `class Example extends Component {
-  render() {
-    return (
-      <>
-        {condition ? null : "Example"}
-      </>
-    )
-  }
-}`;
+const classInvalidPositive = generateTest(
+  "class",
+  'condition ? "Example" : null'
+);
 
-const functionInvalidNegative = `function Example() {
-  return (
-    <>
-      {condition ? null : "Example"}
-    </>
-  )
-}`;
+const functionInvalidPositive = generateTest(
+  "function",
+  'condition ? "Example" : null'
+);
+
+const classInvalidNegative = generateTest(
+  "class",
+  'condition ? null : "Example"'
+);
+
+const functionInvalidNegative = generateTest(
+  "function",
+  'condition ? null : "Example"'
+);
 
 const positiveError = {
   message:

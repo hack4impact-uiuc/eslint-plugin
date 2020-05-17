@@ -1,4 +1,4 @@
-# no-anonymous-parameterless-props
+# no-redundant-functions
 
 Requires that parameterless functions used as props be passed in through their identifiers, not using an anonymous function.
 

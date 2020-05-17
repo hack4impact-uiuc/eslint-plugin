@@ -16,9 +16,8 @@ export = {
     },
   },
   rules: {
-    "@h4iuiuc/no-access-state-after-set": "error",
-    "@h4iuiuc/no-null-ternary": "error",
-    "@h4iuiuc/no-anonymous-parameterless-props": "error",
+    "@hackimpact-uiuc/no-access-state-after-set": "error",
+    "@hackimpact-uiuc/no-null-ternary": "error",
     "react/destructuring-assignment": ["error", "always"],
     "react/jsx-boolean-value": ["warn", "never"],
     "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],

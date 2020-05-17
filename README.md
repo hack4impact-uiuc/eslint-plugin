@@ -43,12 +43,12 @@ If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslin
 }
 ```
 
-If you need to modify or disable specific rules, you can do so in the `rules` section of your `.eslintrc.json` file. For example, if you wish to disable `no-anonymous-parameterless-props`, add the following to your `.eslintrc.json` file:
+If you need to modify or disable specific rules, you can do so in the `rules` section of your `.eslintrc.json` file. For example, if you wish to disable `no-reduntant-functions`, add the following to your `.eslintrc.json` file:
 
 ```json
 {
   "rules": {
-    "@hack4impact-uiuc/no-anonymous-parameterless-props": "off"
+    "@hack4impact-uiuc/no-redundant-functions": "off"
   }
 }
 ```
@@ -63,11 +63,11 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 
 ### Rules
 
-| Rule                                                                                    | Default                   | Fixable            |
-| --------------------------------------------------------------------------------------- | ------------------------- | ------------------ |
-| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md)               | :triangular_flag_on_post: | :x:                |
-| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                                   | :triangular_flag_on_post: | :heavy_check_mark: |
-| [**no-anonymous-parameterless-props**](/docs/rules/no-anonymous-parameterless-props.md) | :triangular_flag_on_post: | :heavy_check_mark: |
+| Rule                                                                      | Default                   | Fixable            |
+| ------------------------------------------------------------------------- | ------------------------- | ------------------ |
+| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md) | :triangular_flag_on_post: | :x:                |
+| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                     | :triangular_flag_on_post: | :heavy_check_mark: |
+| [**no-redundant-functions**](/docs/rules/no-redundant-functions.md)       | :triangular_flag_on_post: | :heavy_check_mark: |
 
 ### Key
 
