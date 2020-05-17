@@ -85,15 +85,18 @@ export = {
         // skip things outside the current block if it includes a return statement
         let shouldContinue = true;
 
+        // TODO: search for instances of calling top-level function
         blockAncestors.forEach((block) => {
           if (shouldContinue) {
             const { body } = block;
 
+            // isolate the part of the function body after the setState call
             const setStateIndex = body.findIndex((bodyItem) =>
               ancestors.includes(bodyItem)
             );
             const postSetStateBody = body.slice(setStateIndex + 1);
 
+            // if it follows the pattern '...state.<field>', report if field is modified
             postSetStateBody.forEach((bodyItem) => {
               simpleTraverse(bodyItem as TSESTree.Node, {
                 enter: (child, parent) => {
@@ -134,46 +137,6 @@ export = {
             }
           }
         });
-
-        // let { body } = block;
-
-        // // isolate the part of the function body after the setState call
-        // const setStateIndex = body.findIndex((bodyItem) =>
-        //   ancestors.includes(bodyItem)
-        // );
-        // const postSetStateBody = body.slice(setStateIndex + 1);
-
-        // console.log(block);
-
-        // // if it follows the pattern '...state.<field>', report if field is modified
-        // postSetStateBody.forEach((bodyItem) => {
-        //   simpleTraverse(bodyItem as TSESTree.Node, {
-        //     enter: (child, parent) => {
-        //       if (
-        //         child.type === "Identifier" &&
-        //         parent?.type === "MemberExpression" &&
-        //         modifiedState.has(child.name)
-        //       ) {
-        //         // account for thisExpressions, nested objects and destructuring
-        //         let parentName = undefined;
-        //         if (parent.object.type === "MemberExpression") {
-        //           const parentProperty = parent.object.property as Identifier;
-        //           parentName = parentProperty.name;
-        //         } else if (parent.object.type === "Identifier") {
-        //           parentName = parent.object.name;
-        //         }
-
-        //         if (parentName === "state") {
-        //           context.report({
-        //             node: parent as Node,
-        //             message:
-        //               "state fields modified by a setState call should not be accessed afterwards in the same block",
-        //           });
-        //         }
-        //       }
-        //     },
-        //   });
-        // });
       },
 
       ":matches(Program, ExportDefaultDeclaration, ExportNamedDeclaration) > :matches(FunctionDeclaration, FunctionExpression, ArrowFunctionExpression) ReturnStatement :matches(JSXElement, JSXFragment)": (): void => {
@@ -242,6 +205,9 @@ export = {
           ) {
             const modifiedField = stateDict[child.name];
 
+            const blockAncestors: BlockStatement[] = [];
+            const ancestors: Node[] = [];
+
             // traverse to function body and statement containing useState setter call
             let next = parent;
             let prev: TSESTree.Node = child;
@@ -253,34 +219,58 @@ export = {
             ) {
               prev = next;
               next = next.parent;
+
+              ancestors.push(prev as Node);
+              if (next.type === "BlockStatement") {
+                blockAncestors.push(next as BlockStatement);
+              }
             }
 
             if (next.type !== "BlockStatement") {
               return;
             }
 
-            const { body } = next;
-            // isolate function body after useState setter call
-            const useStateIndex = body.indexOf(prev as TSESTree.Statement);
-            const postUseState = body.slice(useStateIndex + 1);
+            // skip things outside the current block if it includes a return statement
+            let shouldContinue = true;
 
-            // if identifier shares name with modified field, report
-            postUseState.forEach((statement) =>
-              simpleTraverse(statement as TSESTree.Node, {
-                enter: (postChild) => {
-                  if (
-                    postChild.type === "Identifier" &&
-                    postChild.name === modifiedField
-                  ) {
-                    context.report({
-                      node: postChild,
-                      message:
-                        "state fields modified by a useState setter call should not be accessed afterwards in the same block",
-                    });
-                  }
-                },
-              })
-            );
+            blockAncestors.forEach((block) => {
+              if (shouldContinue) {
+                const { body } = block;
+
+                // isolate function body after useState setter call
+                const useStateIndex = body.findIndex((statement) =>
+                  ancestors.includes(statement)
+                );
+                const postUseState = body.slice(useStateIndex + 1);
+
+                // if identifier shares name with modified field, report
+                postUseState.forEach((statement) =>
+                  simpleTraverse(statement as TSESTree.Node, {
+                    enter: (postChild) => {
+                      if (
+                        postChild.type === "Identifier" &&
+                        postChild.name === modifiedField
+                      ) {
+                        context.report({
+                          node: postChild,
+                          message:
+                            "state fields modified by a useState setter call should not be accessed afterwards in the same block",
+                        });
+                      }
+                    },
+                  })
+                );
+
+                // break loop if return statement found
+                if (
+                  postUseState.some(
+                    (statement) => statement.type === "ReturnStatement"
+                  )
+                ) {
+                  shouldContinue = false;
+                }
+              }
+            });
           }
         };
 
