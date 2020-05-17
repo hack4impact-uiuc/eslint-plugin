@@ -43,7 +43,7 @@ If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslin
 }
 ```
 
-If you need to modify or disable specific rules, you can do so in the `rules` section of your `.eslintrc.json` file. For example, if you wish to disable `no-reduntant-functions`, add the following to your `.eslintrc.json` file:
+If you need to modify or disable specific rules, you can do so in the `rules` section of your `.eslintrc.json` file. For example, if you wish to disable `no-redundant-functions`, add the following to your `.eslintrc.json` file:
 
 ```json
 {
