@@ -1,4 +1,4 @@
-# eslint-plugin [![npm package](https://img.shields.io/npm/v/@h4iuiuc/eslint-plugin)](https://www.npmjs.com/package/@h4iuiuc/eslint-plugin) [![build](https://img.shields.io/github/workflow/status/hack4impact-uiuc/eslint-plugin/CD)](https://github.com/hack4impact-uiuc/eslint-plugin/actions?query=workflow%3ACD)
+# eslint-plugin [![npm package](https://img.shields.io/npm/v/@hack4impact-uiuc/eslint-plugin)](https://www.npmjs.com/package/@hack4impact-uiuc/eslint-plugin) [![build](https://img.shields.io/github/workflow/status/hack4impact-uiuc/eslint-plugin/CD)](https://github.com/hack4impact-uiuc/eslint-plugin/actions?query=workflow%3ACD)
 
 An ESLint plugin intended for use with Hack4Impact UIUC projects.
 
@@ -10,15 +10,15 @@ You'll first need to install [ESLint](http://eslint.org):
 npm i eslint --save-dev
 ```
 
-Next, install `@h4iuiuc/eslint-plugin`:
+Next, install `@hack4impact-uiuc/eslint-plugin`:
 
 ```shell
-npm install @h4iuiuc/eslint-plugin --save-dev
+npm install @hack4impact-uiuc/eslint-plugin --save-dev
 ```
 
 ## Usage
 
-To enable `@h4iuiuc/eslint-plugin`, you'll need to create a `.eslintrc.json` file for ESLint configuration.
+To enable `@hack4impact-uiuc/eslint-plugin`, you'll need to create a `.eslintrc.json` file for ESLint configuration.
 
 This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`, and `eslint-plugin-react-hooks` through the `recommended` config (inspired by `eslint-config-react-app`).
 
@@ -26,8 +26,8 @@ For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file 
 
 ```json
 {
-  "plugins": ["@h4iuiuc"],
-  "extends": ["plugin:@h4iuiuc/recommended"]
+  "plugins": ["@hack4impact-uiuc"],
+  "extends": ["plugin:@hack4impact-uiuc/recommended"]
 }
 ```
 
@@ -35,8 +35,11 @@ If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslin
 
 ```json
 {
-  "plugins": ["@h4iuiuc"],
-  "extends": ["plugin:@h4iuiuc/recommended", "plugin:@h4iuiuc/typescript"]
+  "plugins": ["@hack4impact-uiuc"],
+  "extends": [
+    "plugin:@hack4impact-uiuc/recommended",
+    "plugin:@hack4impact-uiuc/typescript"
+  ]
 }
 ```
 
@@ -45,7 +48,7 @@ If you need to modify or disable specific rules, you can do so in the `rules` se
 ```json
 {
   "rules": {
-    "@h4iuiuc/no-anonymous-parameterless-props": "off"
+    "@hack4impact-uiuc/no-anonymous-parameterless-props": "off"
   }
 }
 ```

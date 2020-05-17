@@ -1,5 +1,5 @@
 {
-  "name": "@h4iuiuc/eslint-plugin",
+  "name": "@hack4impact-uiuc/eslint-plugin",
   "version": "1.1.9",
   "description": "An ESLint plugin intended for use with Hack4Impact UIUC projects.",
   "main": "dist/index.js",
