@@ -167,13 +167,13 @@ describe("plugin", (): void => {
         "configs is not a member of the plugin"
       ));
 
-    describe("recommended", (): Test =>
-      it("recommended should be a member of configs", (): void =>
-        assert.property(
-          configs,
-          "recommended",
-          "recommended is not a member of configs"
-        )));
+    describe("base", (): Test =>
+      it("base should be a member of configs", (): void =>
+        assert.property(configs, "base", "base is not a member of configs")));
+
+    describe("react", (): Test =>
+      it("react should be a member of configs", (): void =>
+        assert.property(configs, "react", "react is not a member of configs")));
 
     describe("typescript", (): Test =>
       it("typescript should be a member of configs", (): void =>
