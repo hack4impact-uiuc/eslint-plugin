@@ -65,52 +65,115 @@ export = {
 
         // find the function containing the setState call
         const ancestors = context.getAncestors();
-        const func: Function = ancestors
+
+        // find all block statements in the ancestors - anything after these must not contain the state
+        const blockAncestors = ancestors
           .reverse()
-          .find(
-            (ancestor) =>
-              ancestor.type === "FunctionDeclaration" ||
-              ancestor.type === "FunctionExpression" ||
-              ancestor.type === "ArrowFunctionExpression"
-          ) as Function;
-        const block = func.body as BlockStatement;
-        const { body } = block;
+          .slice(
+            0,
+            ancestors.findIndex(
+              (ancestor) =>
+                ancestor.type === "FunctionDeclaration" ||
+                ancestor.type === "FunctionExpression" ||
+                ancestor.type === "ArrowFunctionExpression"
+            )
+          )
+          .filter(
+            (ancestor) => ancestor.type === "BlockStatement"
+          ) as BlockStatement[];
 
-        // isolate the part of the function body after the setState call
-        const setStateIndex = body.findIndex((bodyItem) =>
-          ancestors.includes(bodyItem)
-        );
-        const postSetStateBody = body.slice(setStateIndex + 1);
+        // skip things outside the current block if it includes a return statement
+        let shouldContinue = true;
 
-        // if it follows the pattern '...state.<field>', report if field is modified
-        postSetStateBody.forEach((bodyItem) => {
-          simpleTraverse(bodyItem as TSESTree.Node, {
-            enter: (child, parent) => {
-              if (
-                child.type === "Identifier" &&
-                parent?.type === "MemberExpression" &&
-                modifiedState.has(child.name)
-              ) {
-                // account for thisExpressions, nested objects and destructuring
-                let parentName = undefined;
-                if (parent.object.type === "MemberExpression") {
-                  const parentProperty = parent.object.property as Identifier;
-                  parentName = parentProperty.name;
-                } else if (parent.object.type === "Identifier") {
-                  parentName = parent.object.name;
-                }
+        blockAncestors.forEach((block) => {
+          if (shouldContinue) {
+            const { body } = block;
 
-                if (parentName === "state") {
-                  context.report({
-                    node: parent as Node,
-                    message:
-                      "state fields modified by a setState call should not be accessed afterwards in the same block",
-                  });
-                }
-              }
-            },
-          });
+            const setStateIndex = body.findIndex((bodyItem) =>
+              ancestors.includes(bodyItem)
+            );
+            const postSetStateBody = body.slice(setStateIndex + 1);
+
+            postSetStateBody.forEach((bodyItem) => {
+              simpleTraverse(bodyItem as TSESTree.Node, {
+                enter: (child, parent) => {
+                  if (
+                    child.type === "Identifier" &&
+                    parent?.type === "MemberExpression" &&
+                    modifiedState.has(child.name)
+                  ) {
+                    // account for thisExpressions, nested objects and destructuring
+                    let parentName = undefined;
+                    if (parent.object.type === "MemberExpression") {
+                      const parentProperty = parent.object
+                        .property as Identifier;
+                      parentName = parentProperty.name;
+                    } else if (parent.object.type === "Identifier") {
+                      parentName = parent.object.name;
+                    }
+
+                    if (parentName === "state") {
+                      context.report({
+                        node: parent as Node,
+                        message:
+                          "state fields modified by a setState call should not be accessed afterwards in the same block",
+                      });
+                    }
+                  }
+                },
+              });
+            });
+
+            // break loop if return statement found
+            if (
+              postSetStateBody.some(
+                (statement) => statement.type === "ReturnStatement"
+              )
+            ) {
+              shouldContinue = false;
+            }
+          }
         });
+
+        // let { body } = block;
+
+        // // isolate the part of the function body after the setState call
+        // const setStateIndex = body.findIndex((bodyItem) =>
+        //   ancestors.includes(bodyItem)
+        // );
+        // const postSetStateBody = body.slice(setStateIndex + 1);
+
+        // console.log(block);
+
+        // // if it follows the pattern '...state.<field>', report if field is modified
+        // postSetStateBody.forEach((bodyItem) => {
+        //   simpleTraverse(bodyItem as TSESTree.Node, {
+        //     enter: (child, parent) => {
+        //       if (
+        //         child.type === "Identifier" &&
+        //         parent?.type === "MemberExpression" &&
+        //         modifiedState.has(child.name)
+        //       ) {
+        //         // account for thisExpressions, nested objects and destructuring
+        //         let parentName = undefined;
+        //         if (parent.object.type === "MemberExpression") {
+        //           const parentProperty = parent.object.property as Identifier;
+        //           parentName = parentProperty.name;
+        //         } else if (parent.object.type === "Identifier") {
+        //           parentName = parent.object.name;
+        //         }
+
+        //         if (parentName === "state") {
+        //           context.report({
+        //             node: parent as Node,
+        //             message:
+        //               "state fields modified by a setState call should not be accessed afterwards in the same block",
+        //           });
+        //         }
+        //       }
+        //     },
+        //   });
+        // });
       },
 
       ":matches(Program, ExportDefaultDeclaration, ExportNamedDeclaration) > :matches(FunctionDeclaration, FunctionExpression, ArrowFunctionExpression) ReturnStatement :matches(JSXElement, JSXFragment)": (): void => {
