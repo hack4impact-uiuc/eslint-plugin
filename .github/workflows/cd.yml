@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - name: npm run format
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - name: npm run lint
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
@@ -45,13 +45,13 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
-      - name: npm run build
+          node-version: 12
+      - name: npm run typecheck
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
-          npx tsc
+          npm run typecheck
 
   test:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - name: npm test
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
@@ -74,7 +74,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - name: npm publish--access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
