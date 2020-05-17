@@ -7,7 +7,7 @@ const classValid = `class Example extends Component {
     this.setState({example});
     console.log(example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -33,7 +33,7 @@ const classValidNested = `class Example extends Component {
     }
     console.log(example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -62,7 +62,7 @@ const classValidOutside = `class Example extends Component {
   componentDidUpdate() {
     console.log(this.state.example)
   }
-  
+
   render() {
     return <></>;
   }
@@ -87,7 +87,7 @@ const classValidBefore = `class Example extends Component {
     const example = "Example";
     this.setState({example});
   }
-  
+
   render() {
     return <></>;
   }
@@ -113,7 +113,7 @@ const classValidMultiple = `class Example extends Component {
     console.log(example);
     console.log(count);
   }
-  
+
   render() {
     return <></>;
   }
@@ -135,6 +135,38 @@ const functionValidMultiple = `function Example() {
   return <></>;
 }`;
 
+const classValidIf = `class Example extends Component {
+  componentDidMount() {
+    if (example) {
+      const example = "Example";
+      this.setState({example});
+      return;
+    }
+    console.log(this.state.example);
+  }
+  
+  render() {
+    return <></>;
+  }
+}`;
+
+const functionValidIf = `function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    if (example) {
+      const newExample = "Example";
+      setExample(newExample);
+      return;
+    }
+    console.log(example);
+  };
+
+  return <></>;
+}`;
+
+// TODO: add a .then
+
 const classValidDestructureSetstate = `class Example extends Component {
   componentDidMount() {
     const { setState } = this;
@@ -142,7 +174,7 @@ const classValidDestructureSetstate = `class Example extends Component {
     setState({example});
     console.log(example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -154,7 +186,7 @@ const classValidUpdater = `class Example extends Component {
     this.setState(prevState => ({example}));
     console.log(example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -224,7 +256,7 @@ const classInvalid = `class Example extends Component {
     this.setState({example});
     console.log(this.state.example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -250,7 +282,7 @@ const classInvalidNested = `class Example extends Component {
     }
     console.log(this.state.example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -277,7 +309,7 @@ const classInvalidMultiple = `class Example extends Component {
     console.log(this.state.example);
     console.log(this.state.count);
   }
-  
+
   render() {
     return <></>;
   }
@@ -299,6 +331,36 @@ const functionInvalidMultiple = `function Example() {
   return <></>;
 }`;
 
+const classInvalidIf = `class Example extends Component {
+  componentDidMount() {
+    if (example) {
+      const example = "Example";
+      this.setState({example});
+      console.log(this.state.example);
+    }
+  }
+  
+  render() {
+    return <></>;
+  }
+}`;
+
+const functionInvalidIf = `function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    if (example) {
+      const newExample = "Example";
+      setExample(newExample);
+      console.log(example);
+    }
+  };
+
+  return <></>;
+}`;
+
+// TODO: add a .then
+
 const classInvalidDestructureSetstate = `class Example extends Component {
   componentDidMount() {
     const { setState } = this;
@@ -306,7 +368,7 @@ const classInvalidDestructureSetstate = `class Example extends Component {
     setState({example});
     console.log(this.state.example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -319,7 +381,7 @@ const classInvalidDestructureState = `class Example extends Component {
     this.setState({example});
     console.log(state.example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -331,7 +393,7 @@ const classInvalidUpdater = `class Example extends Component {
     this.setState(prevState => ({example}));
     console.log(this.state.example);
   }
-  
+
   render() {
     return <></>;
   }
@@ -363,7 +425,7 @@ const functionInvalidExpression = `function Example() {
 
 const functionInvalidArrowExpression = `function Example() {
   const [example, setExample] = useState(null);
-  
+
   const updateExample = () => {
     const newExample = "Example";
     setExample(newExample);
@@ -407,6 +469,8 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionValidBefore },
     { code: classValidMultiple },
     { code: functionValidMultiple },
+    { code: classValidIf },
+    { code: functionValidIf },
     { code: classValidDestructureSetstate },
     { code: classValidUpdater },
     { code: functionValidDeclaration },
@@ -428,6 +492,8 @@ ruleTester.run("no-access-state-after-set", rule, {
       errors: [classError, classError],
     },
     { code: functionInvalidMultiple, errors: [functionError, functionError] },
+    { code: classInvalidIf, errors: [classError] },
+    { code: functionInvalidIf, errors: [functionError] },
     {
       code: classInvalidDestructureSetstate,
       errors: [classError],
@@ -436,6 +502,7 @@ ruleTester.run("no-access-state-after-set", rule, {
       code: classInvalidDestructureState,
       errors: [classError],
     },
+
     { code: classInvalidUpdater, errors: [classError] },
     { code: functionInvalidDeclaration, errors: [functionError] },
     { code: functionInvalidExpression, errors: [functionError] },
