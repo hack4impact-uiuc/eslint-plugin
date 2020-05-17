@@ -48,8 +48,7 @@ const functionInvalid = generateTest("function", "() => toggle()");
 const classInvalidNoThis = generateTest("class", "() => toggle()");
 
 const error = {
-  message:
-    "parameterless functions used as props should be passed in by their identifiers",
+  message: "function is redundant, use called method in function body instead",
 };
 
 ruleTester.run("no-anonymous-parameterless-props", rule, {
@@ -70,17 +69,14 @@ ruleTester.run("no-anonymous-parameterless-props", rule, {
     {
       code: classInvalid,
       errors: [error],
-      output: classValidIdentifier,
     },
     {
       code: functionInvalid,
       errors: [error],
-      output: functionValidIdentifier,
     },
     {
       code: classInvalidNoThis,
       errors: [error],
-      output: classValidNoThis,
     },
   ],
 });

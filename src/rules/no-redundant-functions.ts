@@ -8,11 +8,29 @@ import {
 } from "estree";
 import { getRuleMetaData } from "../utils";
 
+const isFunctionRedundant = (
+  caller: CallExpression,
+  paramNames: string[]
+): boolean => {
+  if (
+    caller !== null &&
+    caller.arguments.length === paramNames.length &&
+    caller.arguments.every((argument) => argument.type === "Identifier")
+  ) {
+    const argumentIdentifiers = caller.arguments as Identifier[];
+    const argumentNames = argumentIdentifiers.map((argument) => argument.name);
+
+    return argumentNames.every(
+      (argumentName, idx) => paramNames[idx] === argumentName
+    );
+  }
+  return false;
+};
+
 export = {
   meta: getRuleMetaData(
     "no-redundant-functions",
-    "require parameterless functions used as props to be passed in by their identifiers",
-    "code"
+    "require parameterless functions used as props to be passed in by their identifiers"
   ),
 
   create: (context: Rule.RuleContext): Rule.RuleListener =>
@@ -46,65 +64,49 @@ export = {
             caller = statement.argument;
           }
 
-          if (
-            caller !== null &&
-            caller.arguments.length === params.length &&
-            caller.arguments.every((argument) => argument.type === "Identifier")
-          ) {
-            const argumentIdentifiers = caller.arguments as Identifier[];
-            const argumentNames = argumentIdentifiers.map(
-              (argument) => argument.name
-            );
-
-            if (
-              argumentNames.every(
-                (argumentName, idx) => paramNames[idx] === argumentName
-              )
-            ) {
-              context.report({
-                node,
-                message: `function is redundant, use called method in function body instead`,
-              });
-              //report
-            }
+          if (caller !== null && isFunctionRedundant(caller, paramNames)) {
+            context.report({
+              node,
+              message: `function is redundant, use called method in function body instead`,
+            });
           }
         }
       },
 
-      // if the prop is a CallExpression
-      ":matches(JSXElement, JSXFragment) ArrowFunctionExpression[body.type='CallExpression']": (
-        node: ArrowFunctionExpression
-      ): void => {
-        const callExpression = node.body as CallExpression;
-        if (node.params.length !== 0 || callExpression.arguments.length !== 0) {
-          return;
-        }
+      ArrowFunctionExpression: (node: ArrowFunctionExpression): void => {
+        const { params, body } = node;
+        if (params.every((param) => param.type === "Identifier")) {
+          const paramIdentifiers = params as Identifier[];
+          const paramNames = paramIdentifiers.map((param) => param.name);
 
-        const callee = callExpression.callee;
-        const reportMessage =
-          "parameterless functions used as props should be passed in by their identifiers";
+          let caller: CallExpression | null = null;
 
-        // () => this.foo()
-        if (
-          callee.type === "MemberExpression" &&
-          callee.object.type === "ThisExpression" &&
-          callee.property.type === "Identifier"
-        ) {
-          const functionIdentifier = callee.property as Identifier;
-          context.report({
-            node,
-            message: reportMessage,
-            fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-              fixer.replaceText(node, `this.${functionIdentifier.name}`),
-          });
-        } else if (callee.type === "Identifier") {
-          // () => foo()
-          context.report({
-            node,
-            message: reportMessage,
-            fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-              fixer.replaceText(node, callee.name),
-          });
+          if (body.type === "CallExpression") {
+            caller = body;
+          } else if (body.type === "BlockStatement") {
+            const blockBody = body.body;
+            if (blockBody.length === 1) {
+              const [statement] = blockBody;
+              if (
+                statement.type === "ExpressionStatement" &&
+                statement.expression.type === "CallExpression"
+              ) {
+                caller = statement.expression;
+              } else if (
+                statement.type === "ReturnStatement" &&
+                statement.argument?.type === "CallExpression"
+              ) {
+                caller = statement.argument;
+              }
+            }
+          }
+
+          if (caller !== null && isFunctionRedundant(caller, paramNames)) {
+            context.report({
+              node,
+              message: `function is redundant, use called method in function body instead`,
+            });
+          }
         }
       },
     } as Rule.RuleListener),
