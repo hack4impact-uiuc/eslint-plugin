@@ -67,7 +67,7 @@ Some rules (see table below) are fixable using the `--fix` ESLint option.
 | ------------------------------------------------------------------------- | ------------------------- | ------------------ |
 | [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md) | :triangular_flag_on_post: | :x:                |
 | [**no-null-ternary**](/docs/rules/no-null-ternary.md)                     | :triangular_flag_on_post: | :heavy_check_mark: |
-| [**no-redundant-functions**](/docs/rules/no-redundant-functions.md)       | :triangular_flag_on_post: | :heavy_check_mark: |
+| [**no-redundant-functions**](/docs/rules/no-redundant-functions.md)       | :triangular_flag_on_post: | :x:                |
 
 ### Key
 

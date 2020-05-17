@@ -2,8 +2,6 @@
 
 Requires that parameterless functions used as props be passed in through their identifiers, not using an anonymous function.
 
-This rule is fixable using the `--fix` option.
-
 ## Examples
 
 ### Correct
