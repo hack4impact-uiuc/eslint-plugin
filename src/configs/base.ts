@@ -24,7 +24,6 @@ export = {
   },
   rules: {
     "@hackimpact-uiuc/no-redundant-functions": "error",
-
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     eqeqeq: "error",
