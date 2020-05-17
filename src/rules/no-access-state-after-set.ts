@@ -64,18 +64,14 @@ export = {
         }
 
         // find the function containing the setState call
-        const ancestors = context.getAncestors();
+        const ancestors = context.getAncestors().reverse();
 
         // find all block statements in the ancestors - anything after these must not contain the state
         const blockAncestors = ancestors
-          .reverse()
           .slice(
             0,
             ancestors.findIndex(
-              (ancestor) =>
-                ancestor.type === "FunctionDeclaration" ||
-                ancestor.type === "FunctionExpression" ||
-                ancestor.type === "ArrowFunctionExpression"
+              (ancestor) => ancestor.type === "ClassDeclaration"
             )
           )
           .filter(
@@ -205,30 +201,24 @@ export = {
           ) {
             const modifiedField = stateDict[child.name];
 
-            const blockAncestors: BlockStatement[] = [];
             const ancestors: Node[] = [];
 
             // traverse to function body and statement containing useState setter call
-            let next = parent;
+            let next = parent as TSESTree.Node;
             let prev: TSESTree.Node = child;
-            while (
-              next.parent !== undefined &&
-              next.parent.type !== "FunctionDeclaration" &&
-              next.parent.type !== "FunctionExpression" &&
-              next.parent.type !== "ArrowFunctionExpression"
-            ) {
+            while (next.parent !== undefined && next.parent !== func) {
               prev = next;
               next = next.parent;
-
               ancestors.push(prev as Node);
-              if (next.type === "BlockStatement") {
-                blockAncestors.push(next as BlockStatement);
-              }
             }
 
             if (next.type !== "BlockStatement") {
               return;
             }
+
+            const blockAncestors = ancestors.filter(
+              (ancestor) => ancestor.type === "BlockStatement"
+            ) as BlockStatement[];
 
             // skip things outside the current block if it includes a return statement
             let shouldContinue = true;
@@ -278,7 +268,7 @@ export = {
         body.forEach((statement) => {
           if (statement.type === "FunctionDeclaration") {
             simpleTraverse(statement.body as TSESTree.Node, {
-              enter: (child, parent) => functionTraverse(child, parent),
+              enter: functionTraverse,
             });
           } else if (
             statement.type === "ExpressionStatement" &&
@@ -287,7 +277,7 @@ export = {
             statement.expression.callee.name === "useEffect"
           ) {
             simpleTraverse(statement.expression.arguments[0] as TSESTree.Node, {
-              enter: (child, parent) => functionTraverse(child, parent),
+              enter: functionTraverse,
             });
           } else if (statement.type === "VariableDeclaration") {
             statement.declarations.forEach((declaration) => {
@@ -296,7 +286,7 @@ export = {
                 declaration.init?.type === "ArrowFunctionExpression"
               ) {
                 simpleTraverse(declaration.init.body as TSESTree.Node, {
-                  enter: (child, parent) => functionTraverse(child, parent),
+                  enter: functionTraverse,
                 });
               }
             });
