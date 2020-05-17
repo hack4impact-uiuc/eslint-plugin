@@ -1,2 +1,2 @@
-export { HTTP_STATUS_CODES } from "./http";
+export { MAGIC_NUMBERS } from "./numbers";
 export { getRuleMetaData } from "./metadata";

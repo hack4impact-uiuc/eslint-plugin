@@ -1,4 +1,4 @@
-import { HTTP_STATUS_CODES } from "../utils";
+import { MAGIC_NUMBERS } from "../utils";
 
 export = {
   parser: "@typescript-eslint/parser",
@@ -31,7 +31,7 @@ export = {
     "no-else-return": "error",
     "no-empty-function": "error",
     "no-lone-blocks": "error",
-    "no-magic-numbers": ["error", { ignore: [0, 1, 60, ...HTTP_STATUS_CODES] }],
+    "no-magic-numbers": ["error", { ignore: MAGIC_NUMBERS }],
     "no-multi-spaces": "error",
     "no-nested-ternary": "error",
     "no-redeclare": "error",

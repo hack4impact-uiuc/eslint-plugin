@@ -1,4 +1,4 @@
-import { HTTP_STATUS_CODES } from "../utils";
+import { MAGIC_NUMBERS } from "../utils";
 
 export = {
   plugins: ["@typescript-eslint", "import"],
@@ -21,7 +21,7 @@ export = {
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        ignore: [0, 1, 60, ...HTTP_STATUS_CODES],
+        ignore: MAGIC_NUMBERS,
       },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",

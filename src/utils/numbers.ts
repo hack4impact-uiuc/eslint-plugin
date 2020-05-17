@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 
-export const HTTP_STATUS_CODES = [
+export const MAGIC_NUMBERS = [
+  0,
+  1,
+  60,
   100,
   101,
   200,
