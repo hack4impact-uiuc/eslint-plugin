@@ -1,82 +1,76 @@
 import rule from "../../src/rules/no-redundant-functions";
 import { ruleTester } from "../tester";
+import { RuleTester } from "eslint";
 
-const generateTest = (
-  componentType: "class" | "function",
-  body: string
-): string =>
-  componentType === "class"
-    ? `class Example extends Component {
-  render() {
-    return <Button onClick={${body}}>Close</Button>;
-  }
-}`
-    : `function Example() {
-  return <Button onClick={${body}}>Close</Button>;
-}`;
+type FunctionType = "arrow" | "declaration" | "expression";
+const functionTypes: FunctionType[] = ["arrow", "declaration", "expression"];
 
-const classValidIdentifier = generateTest("class", "this.toggle");
-
-const functionValidIdentifier = generateTest("function", "toggle");
-
-const classValidAnonymous = generateTest(
-  "class",
-  "() => this.setState({modal: !this.state.modal})"
-);
-
-const functionValidAnonymous = generateTest(
-  "function",
-  "() => setModal(!modal)"
-);
-
-const classValidPreventDefault = generateTest(
-  "class",
-  "e => e.preventDefault()"
-);
-
-const functionValidPreventDefault = generateTest(
-  "function",
-  "e => e.preventDefault()"
-);
-
-const classValidNoThis = generateTest("class", "toggle");
-
-const classInvalid = generateTest("class", "() => this.toggle()");
-
-const functionInvalid = generateTest("function", "() => toggle()");
-
-const classInvalidNoThis = generateTest("class", "() => toggle()");
-
-const error = {
-  message: "function is redundant, use called method in function body instead",
+const functionTemplates = {
+  arrow: (params: string, args: string): string =>
+    `const example = (${params}) => callee(${args});`,
+  declaration: (
+    params: string,
+    args: string,
+    returns?: boolean
+  ): string => `function example(${params}) {
+    ${returns ? "return " : ""}callee(${args});
+  };`,
+  expression: (
+    params: string,
+    args: string,
+    returns?: boolean
+  ): string => `const example = function(${params}) {
+    ${returns ? "return " : ""}callee(${args});
+  };`,
 };
 
-ruleTester.run("no-anonymous-parameterless-props", rule, {
+const generateValidTests = (
+  params: string,
+  args: string,
+  returns?: boolean
+): RuleTester.ValidTestCase[] =>
+  functionTypes.map((functionType): any => ({
+    code: functionTemplates[functionType](params, args, returns),
+  }));
+
+const generateInvalidTests = (
+  params: string,
+  args: string,
+  returns?: boolean
+): RuleTester.InvalidTestCase[] =>
+  functionTypes.map((functionType): any => ({
+    code: functionTemplates[functionType](params, args, returns),
+    errors: [
+      {
+        message:
+          "function is redundant, use called method in function body instead",
+      },
+    ],
+  }));
+
+ruleTester.run("no-redundant-functions", rule, {
   valid: [
-    {
-      code: classValidIdentifier,
-    },
-    { code: functionValidIdentifier },
-    {
-      code: classValidAnonymous,
-    },
-    { code: functionValidAnonymous },
-    { code: classValidPreventDefault },
-    { code: functionValidPreventDefault },
-    { code: classValidNoThis },
+    ...generateValidTests("", "foo"),
+    ...generateValidTests("foo", ""),
+    ...generateValidTests("foo", "{foo}"),
+    ...generateValidTests("{foo}", "foo"),
+    ...generateValidTests("foo", "[foo]"),
+    ...generateValidTests("[foo]", "foo"),
+    ...generateValidTests("[foo], bar", "[foo]"),
+    ...generateValidTests("{foo}, bar", "{foo}"),
+    ...generateValidTests("foo, bar", "foo"),
+    ...generateValidTests("foo", "foo, bar"),
+    ...generateValidTests("foo, bar", "bar, foo"),
+    ...generateValidTests("{foo, bar}", "{bar, foo}"),
+    ...generateValidTests("[foo, bar]", "[bar, foo]"),
+    ...generateValidTests("{foo, bar}", "{foo}"),
   ],
   invalid: [
-    {
-      code: classInvalid,
-      errors: [error],
-    },
-    {
-      code: functionInvalid,
-      errors: [error],
-    },
-    {
-      code: classInvalidNoThis,
-      errors: [error],
-    },
+    ...generateInvalidTests("", ""),
+    ...generateInvalidTests("foo", "foo"),
+    ...generateInvalidTests("{foo}", "{foo}"),
+    ...generateInvalidTests("[foo]", "[foo]"),
+    ...generateInvalidTests("foo, bar", "foo, bar"),
+    ...generateInvalidTests("foo,bar", "foo, bar"),
   ],
 });

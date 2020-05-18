@@ -1,6 +1,6 @@
 # no-redundant-functions
 
-Requires that parameterless functions used as props be passed in through their identifiers, not using an anonymous function.
+Forbids redundant functions that simply pass their arguments directly to another function in the same order.
 
 ## Examples
 

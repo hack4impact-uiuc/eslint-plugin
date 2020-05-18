@@ -52,16 +52,10 @@ const testRule = (ruleName: string, rules: any): void => {
           assert.match(testsFileContent, /ruleTester.run/));
 
         it(`${ruleName} tests have at least one valid test case`, (): void =>
-          assert.match(
-            testsFileContent,
-            /valid: \[((.|\n)*{(.|\n)*}(.|\n)*)+\]/
-          ));
+          assert.match(testsFileContent, /valid: \[(.|\n|)*.+\]/));
 
         it(`${ruleName} tests have at least one invalid test case`, (): void =>
-          assert.match(
-            testsFileContent,
-            /invalid: \[((.|\n)*{(.|\n)*}(.|\n)*)+\]/
-          ));
+          assert.match(testsFileContent, /invalid: \[(.|\n|)*.+\]/));
       }
     });
 

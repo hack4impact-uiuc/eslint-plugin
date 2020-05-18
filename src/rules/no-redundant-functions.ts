@@ -11,7 +11,7 @@ import { getRuleMetaData } from "../utils";
 export = {
   meta: getRuleMetaData(
     "no-redundant-functions",
-    "require parameterless functions used as props to be passed in by their identifiers"
+    "forbids redundant functions that simply pass their arguments directly to another function in the same order"
   ),
 
   create: (context: Rule.RuleContext): Rule.RuleListener => {
@@ -36,12 +36,12 @@ export = {
       ":matches(FunctionDeclaration, FunctionExpression)": (
         node: FunctionDeclaration | FunctionExpression
       ): void => {
-        const { body } = node.body;
-        const { params } = node;
-        const [statement] = body;
+        const { body, params } = node;
+        const blockBody = body.body;
+        const [statement] = blockBody;
 
         if (
-          body.length === 1 &&
+          blockBody.length === 1 &&
           (statement.type === "ExpressionStatement" ||
             statement.type === "ReturnStatement")
         ) {
