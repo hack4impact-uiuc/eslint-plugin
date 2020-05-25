@@ -10,19 +10,6 @@ import {
 import { getRuleMetaData } from "../utils";
 import { simpleTraverse, TSESTree } from "@typescript-eslint/typescript-estree";
 
-// TODO: account for:
-/*useEffect(() => {
-    const checkCurrUser = async () => {
-      setIsValidUser(await checkValidUser(false));
-    };
-
-    if (validUser) {
-      Router.replace("/feed");
-    }
-
-    checkCurrUser();
-  }, [validUser]); */
-
 export = {
   meta: getRuleMetaData(
     "no-access-state-after-set",
