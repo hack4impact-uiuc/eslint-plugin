@@ -221,6 +221,7 @@ export = {
               (ancestor) => ancestor.type === "BlockStatement"
             ) as BlockStatement[];
 
+            // check to see if top-level block was a declaration that isn't immediately called
             if (blockAncestors.length >= 2) {
               const lastInternalBlock = blockAncestors[
                 blockAncestors.length - 2
@@ -232,6 +233,7 @@ export = {
                   lastInternalBlock.parent?.parent?.type ===
                     "VariableDeclarator")
               ) {
+                // if so, ignore the outermost level
                 blockAncestors.pop();
               }
             }
