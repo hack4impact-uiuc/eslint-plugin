@@ -17,6 +17,11 @@ export = {
   create: (context: Rule.RuleContext): Rule.RuleListener => {
     const sourceCode = context.getSourceCode();
 
+    /**
+     * Compares the parameters of the inner and outer functions to return if they are the same.
+     * @param caller the outer CallExpression containing parameters
+     * @param params the inner parameters
+     */
     const isFunctionRedundant = (
       caller: CallExpression,
       params: Pattern[]
@@ -40,6 +45,7 @@ export = {
         const blockBody = body.body;
         const [statement] = blockBody;
 
+        // if a single-line body with an expression (optional return)
         if (
           blockBody.length === 1 &&
           (statement.type === "ExpressionStatement" ||
@@ -73,6 +79,7 @@ export = {
 
         let caller: CallExpression | null = null;
 
+        // obtain CallExpression if found from within ArrowFunctionExpression body
         if (body.type === "CallExpression") {
           caller = body;
         } else if (body.type === "BlockStatement") {
