@@ -248,6 +248,42 @@ const functionValidUseEffect = `function Example() {
   return <></>;
 }`;
 
+const functionValidDeclarationAssignment = `function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    function setExampleWrapper() { 
+      setExample(false);
+    };
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}`;
+
+const functionValidArrowAssignment = `function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    const setExampleWrapper = () => {
+      setExample(false);
+    }
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}`;
+
 const classInvalid = `class Example extends Component {
   componentDidMount() {
     const example = "Example";
@@ -471,6 +507,44 @@ const functionInvalidUseEffect = `function Example() {
   return <></>;
 }`;
 
+const functionInvalidDeclarationAssignment = `function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    function setExampleWrapper() { 
+      setExample(false);
+      console.log(example);
+    };
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}`;
+
+const functionInvalidArrowAssignment = `function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    const setExampleWrapper = () => {
+      setExample(false);
+      console.log(example);
+    }
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}`;
+
 const classError = {
   message:
     "state fields modified by a setState call should not be accessed afterwards in the same block",
@@ -502,6 +576,8 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionValidArrowExpression },
     { code: functionValidSetterGet },
     { code: functionValidUseEffect },
+    { code: functionValidDeclarationAssignment },
+    { code: functionValidArrowAssignment },
   ],
   invalid: [
     {
@@ -533,5 +609,7 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionInvalidExpression, errors: [functionError] },
     { code: functionInvalidArrowExpression, errors: [functionError] },
     { code: functionInvalidUseEffect, errors: [functionError] },
+    { code: functionInvalidDeclarationAssignment, errors: [functionError] },
+    { code: functionInvalidArrowAssignment, errors: [functionError] },
   ],
 });

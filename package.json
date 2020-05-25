@@ -43,14 +43,14 @@
   },
   "homepage": "https://github.com/hack4impact-uiuc/eslint-plugin#readme",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
-    "@typescript-eslint/typescript-estree": "^2.33.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "@typescript-eslint/typescript-estree": "^2.34.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.2",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.3"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
@@ -62,7 +62,7 @@
     "eslint": "^7.0.0",
     "eslint-plugin-eslint-plugin": "^2.2.1",
     "markdownlint-cli": "^0.23.1",
-    "mocha": "^7.1.2",
+    "mocha": "^7.2.0",
     "prettier": "^2.0.5"
   },
   "peerDependencies": {

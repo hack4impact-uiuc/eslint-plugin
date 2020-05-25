@@ -220,6 +220,20 @@ export = {
               (ancestor) => ancestor.type === "BlockStatement"
             ) as BlockStatement[];
 
+            // const lastInternalBlockIndex = blockAncestors.length - 2;
+            const lastInternalBlock = blockAncestors[
+              blockAncestors.length - 2
+            ] as TSESTree.BlockStatement;
+
+            if (
+              lastInternalBlock !== undefined &&
+              (lastInternalBlock.parent?.type === "FunctionDeclaration" ||
+                (lastInternalBlock.parent?.type === "ArrowFunctionExpression" &&
+                  lastInternalBlock.parent?.parent?.type ===
+                    "VariableDeclarator"))
+            ) {
+              blockAncestors.pop();
+            }
             // skip things outside the current block if it includes a return statement
             let shouldContinue = true;
 

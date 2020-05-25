@@ -252,6 +252,44 @@ function Example() {
 }
 ```
 
+```js
+function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    function setExampleWrapper() {
+      setExample(false);
+    }
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}
+
+function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    const setExampleWrapper = () => {
+      setExample(false);
+    };
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}
+```
+
 ### Incorrect
 
 ```js
@@ -477,6 +515,46 @@ function Example() {
     setExample(newExample);
     console.log(example);
   };
+
+  return <></>;
+}
+```
+
+```js
+function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    function setExampleWrapper() {
+      setExample(false);
+      console.log(example);
+    }
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
+
+  return <></>;
+}
+
+function Example() {
+  const [example, setExample] = useState(true);
+
+  useEffect(() => {
+    const setExampleWrapper = () => {
+      setExample(false);
+      console.log(example);
+    };
+
+    if (example) {
+      console.log("hi");
+    }
+
+    setExampleWrapper();
+  }, [validUser]);
 
   return <></>;
 }
