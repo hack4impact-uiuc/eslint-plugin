@@ -7,7 +7,7 @@ An ESLint plugin intended for use with Hack4Impact UIUC projects.
 You'll first need to install [ESLint](http://eslint.org):
 
 ```shell
-npm i eslint --save-dev
+npm install eslint --save-dev
 ```
 
 Next, install `@hack4impact-uiuc/eslint-plugin`:
@@ -20,24 +20,29 @@ npm install @hack4impact-uiuc/eslint-plugin --save-dev
 
 To enable `@hack4impact-uiuc/eslint-plugin`, you'll need to create a `.eslintrc.json` file for ESLint configuration.
 
-This plugin abstracts away configuration from the user, extending configs from `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`, and `eslint-plugin-react-hooks` through the `recommended` config (inspired by `eslint-config-react-app`).
+This plugin abstracts away configuration from the user, with three different configs drawing from `eslint-plugin-import`, `@typescript-eslint/eslint-plugin`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`, and `eslint-plugin-react-hooks`:
 
-For a JavaScript-only app all you'll need to have in your `.eslintrc.json` file is the following:
+- `base`: for use with any JavaScript project
+- `react`: for use with React projects
+- `typescript` for use with projects using TypeScript
+
+For a JavaScript-only React app all you'll need to have in your `.eslintrc.json` file is the following:
 
 ```json
 {
   "plugins": ["@hack4impact-uiuc"],
-  "extends": ["plugin:@hack4impact-uiuc/recommended"]
+  "extends": ["plugin:@hack4impact-uiuc/base", "plugin:@hack4impact-uiuc/react"]
 }
 ```
 
-If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslint-plugin` by extending the `typescript` config as follows:
+If your app uses TypeScript at all, you'll want to use `@typescript-eslint/eslint-plugin` by extending the `typescript` config as follows (this example is for a React app):
 
 ```json
 {
   "plugins": ["@hack4impact-uiuc"],
   "extends": [
-    "plugin:@hack4impact-uiuc/recommended",
+    "plugin:@hack4impact-uiuc/base",
+    "plugin:@hack4impact-uiuc/react",
     "plugin:@hack4impact-uiuc/typescript"
   ]
 }
