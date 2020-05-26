@@ -1,14 +1,11 @@
 export = {
-  parser: "@typescript-eslint/parser",
+  plugins: ["jsx-a11y", "react", "react-hooks"],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
+    sourceType: "module",
   },
-  env: {
-    browser: true,
-  },
-  plugins: ["jsx-a11y", "react", "react-hooks"],
   extends: ["plugin:jsx-a11y/recommended", "plugin:react/recommended"],
   settings: {
     react: {
@@ -16,8 +13,8 @@ export = {
     },
   },
   rules: {
-    "@hackimpact-uiuc/no-access-state-after-set": "error",
-    "@hackimpact-uiuc/no-null-ternary": "error",
+    "@hack4impact-uiuc/no-access-state-after-set": "error",
+    "@hack4impact-uiuc/no-null-ternary": "error",
     "react/destructuring-assignment": ["error", "always"],
     "react/jsx-boolean-value": ["warn", "never"],
     "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".tsx"] }],

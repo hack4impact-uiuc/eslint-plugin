@@ -2,11 +2,6 @@ import { MAGIC_NUMBERS } from "../utils";
 
 export = {
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
   env: {
     browser: true,
     es6: true,
@@ -14,7 +9,7 @@ export = {
     es2020: true,
     node: true,
   },
-  plugins: ["import", "@typescript-eslint"],
+  plugins: ["@typescript-eslint", "import"],
   extends: ["eslint:recommended", "plugin:import/recommended"],
   settings: {
     "import/resolver": {
@@ -24,7 +19,7 @@ export = {
     },
   },
   rules: {
-    "@hackimpact-uiuc/no-redundant-functions": "error",
+    "@hack4impact-uiuc/no-redundant-functions": "error",
     // TODO: check if this is ok with component PascalCase
     "@typescript-eslint/naming-convention": "error",
     "arrow-body-style": ["error", "as-needed"],
