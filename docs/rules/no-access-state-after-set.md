@@ -156,6 +156,38 @@ function Example() {
 ```js
 class Example extends Component {
   componentDidMount() {
+    if (example) {
+      const example = "Example";
+      this.setState({ example });
+      return;
+    }
+    console.log(this.state.example);
+  }
+
+  render() {
+    return <></>;
+  }
+}
+
+function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    if (example) {
+      const newExample = "Example";
+      setExample(newExample);
+      return;
+    }
+    console.log(example);
+  };
+
+  return <></>;
+}
+```
+
+```js
+class Example extends Component {
+  componentDidMount() {
     const { setState } = this;
     const example = "Example";
     setState({ example });
@@ -343,6 +375,66 @@ function Example() {
     console.log(example);
     console.log(count);
   }, [example, count, setExample, setCount]);
+
+  return <></>;
+}
+```
+
+```js
+class Example extends Component {
+  componentDidMount() {
+    if (example) {
+      const example = "Example";
+      this.setState({ example });
+      console.log(this.state.example);
+    }
+  }
+
+  render() {
+    return <></>;
+  }
+}
+
+function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    if (example) {
+      const newExample = "Example";
+      setExample(newExample);
+      console.log(example);
+    }
+  };
+
+  return <></>;
+}
+```
+
+```js
+class Example extends Component {
+  componentDidMount() {
+    const example = "Example";
+    getData().then(() => {
+      this.setState({ example });
+    });
+    console.log(this.state.example);
+  }
+
+  render() {
+    return <></>;
+  }
+}
+
+function Example() {
+  const [example, setExample] = useState(true);
+
+  const updateExample = () => {
+    const example = "Example";
+    getData().then((newExample) => {
+      setExample(newExample);
+    });
+    console.log(example);
+  };
 
   return <></>;
 }

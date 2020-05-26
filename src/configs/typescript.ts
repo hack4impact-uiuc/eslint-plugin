@@ -1,3 +1,5 @@
+import { MAGIC_NUMBERS } from "../utils";
+
 export = {
   plugins: ["@typescript-eslint", "import"],
   extends: [
@@ -6,7 +8,7 @@ export = {
     "plugin:import/typescript",
   ],
   rules: {
-    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {
@@ -19,7 +21,7 @@ export = {
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        ignore: [0, 1, 60, 100],
+        ignore: MAGIC_NUMBERS,
       },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",

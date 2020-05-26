@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Rule } from "eslint";
 import {
   BlockStatement,
@@ -220,19 +221,21 @@ export = {
               (ancestor) => ancestor.type === "BlockStatement"
             ) as BlockStatement[];
 
-            // const lastInternalBlockIndex = blockAncestors.length - 2;
-            const lastInternalBlock = blockAncestors[
-              blockAncestors.length - 2
-            ] as TSESTree.BlockStatement;
+            // check to see if top-level block was a declaration that isn't immediately called
+            if (blockAncestors.length >= 2) {
+              const lastInternalBlock = blockAncestors[
+                blockAncestors.length - 2
+              ] as TSESTree.BlockStatement;
 
-            if (
-              lastInternalBlock !== undefined &&
-              (lastInternalBlock.parent?.type === "FunctionDeclaration" ||
+              if (
+                lastInternalBlock.parent?.type === "FunctionDeclaration" ||
                 (lastInternalBlock.parent?.type === "ArrowFunctionExpression" &&
                   lastInternalBlock.parent?.parent?.type ===
-                    "VariableDeclarator"))
-            ) {
-              blockAncestors.pop();
+                    "VariableDeclarator")
+              ) {
+                // if so, ignore the outermost level
+                blockAncestors.pop();
+              }
             }
             // skip things outside the current block if it includes a return statement
             let shouldContinue = true;

@@ -1,4 +1,5 @@
-import recommended from "./recommended";
+import base from "./base";
+import react from "./react";
 import typescript from "./typescript";
 
-export = { recommended, typescript };
+export = { base, react, typescript };

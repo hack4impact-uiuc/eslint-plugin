@@ -1,8 +1,6 @@
-# no-anonymous-parameterless-props
+# no-redundant-functions
 
-Requires that parameterless functions used as props be passed in through their identifiers, not using an anonymous function.
-
-This rule is fixable using the `--fix` option.
+Forbids redundant functions that simply pass their arguments directly to another function in the same order.
 
 ## Examples
 

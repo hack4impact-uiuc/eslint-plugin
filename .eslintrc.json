@@ -26,10 +26,9 @@
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        "ignore": [0, 1, 2, 60, 100]
+        "ignore": [0, 1, 2]
       }
     ],
-    "@typescript-eslint/naming-convention": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
