@@ -20,8 +20,6 @@ export = {
   },
   rules: {
     "@hack4impact-uiuc/no-redundant-functions": "error",
-    // TODO: check if this is ok with component PascalCase
-    "@typescript-eslint/naming-convention": "error",
     "arrow-body-style": ["error", "as-needed"],
     camelCase: "off",
     curly: "error",
