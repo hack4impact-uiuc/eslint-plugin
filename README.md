@@ -1,4 +1,6 @@
-# eslint-plugin [![npm package](https://img.shields.io/npm/v/@h4iuiuc/eslint-plugin)](https://www.npmjs.com/package/@h4iuiuc/eslint-plugin) [![build](https://img.shields.io/github/workflow/status/hack4impact-uiuc/eslint-plugin/CD)](https://github.com/hack4impact-uiuc/eslint-plugin/actions?query=workflow%3ACD)
+# DEPRECATION NOTICE: This package has been moved to [@hack4impact-uiuc/eslint-plugin](https://www.npmjs.com/package/@hack4impact-uiuc/eslint-plugin) and will not be publishing further versions under the `h4iuiuc` scope
+
+## eslint-plugin [![npm package](https://img.shields.io/npm/v/@h4iuiuc/eslint-plugin)](https://www.npmjs.com/package/@h4iuiuc/eslint-plugin) [![build](https://img.shields.io/github/workflow/status/hack4impact-uiuc/eslint-plugin/CD)](https://github.com/hack4impact-uiuc/eslint-plugin/actions?query=workflow%3ACD)
 
 An ESLint plugin intended for use with Hack4Impact UIUC projects.
 
