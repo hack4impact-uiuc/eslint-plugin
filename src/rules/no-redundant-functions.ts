@@ -80,7 +80,10 @@ export = {
         let caller: CallExpression | null = null;
 
         // obtain CallExpression if found from within ArrowFunctionExpression body
-        if (body.type === "CallExpression") {
+        if (
+          body.type === "CallExpression" &&
+          body.callee.type !== "MemberExpression"
+        ) {
           caller = body;
         } else if (body.type === "BlockStatement") {
           const blockBody = body.body;

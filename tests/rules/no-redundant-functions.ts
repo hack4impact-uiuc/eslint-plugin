@@ -48,6 +48,8 @@ const generateInvalidTests = (
     ],
   }));
 
+const validArrowMember = `const example = () => console.log("example");`;
+
 ruleTester.run("no-redundant-functions", rule, {
   valid: [
     ...generateValidTests("", "foo"),
@@ -64,6 +66,7 @@ ruleTester.run("no-redundant-functions", rule, {
     ...generateValidTests("{foo, bar}", "{bar, foo}"),
     ...generateValidTests("[foo, bar]", "[bar, foo]"),
     ...generateValidTests("{foo, bar}", "{foo}"),
+    { code: validArrowMember },
   ],
   invalid: [
     ...generateInvalidTests("", ""),

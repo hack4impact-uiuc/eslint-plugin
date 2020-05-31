@@ -2,6 +2,8 @@
 
 Forbids redundant functions that simply pass their arguments directly to another function in the same order.
 
+Arrow functions with single-line CallExpressions containing MemberExpressions (e.g. `console.log`) are ignored due to inconsistencies regarding `this`.
+
 ## Examples
 
 ### Correct
