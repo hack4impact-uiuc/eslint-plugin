@@ -75,9 +75,24 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npm publish--access public
+      - name: Check version changes
+        uses: EndBug/version-check@v1
+        id: check
+        with:
+          diff-search: true
+          file-name: package.json
+      - name: npm publish --access public
+        if: steps.check.outputs.changed == 'true'
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           npm install
           npm publish --access public
+
+      - name: npm publish --dry-run --access public
+        if: steps.check.outputs.changed != 'true'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          npm install
+          npm publish --dry-run --access public
