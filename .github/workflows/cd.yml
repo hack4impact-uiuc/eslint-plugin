@@ -14,11 +14,26 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npm run format
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm install
+
+      - name: Check formatting
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
@@ -28,71 +43,122 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npm run lint
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npm install
-          npm run lint
+        run: npm install
+
+      - name: Run linter
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm run lint
 
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npm run typecheck
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npm install
-          npm run typecheck
+        run: npm install
+
+      - name: Check types
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm run typecheck
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npm test
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npm install
-          npm test
+        run: npm install
+
+      - name: Run tests
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm test
 
   publish:
     needs: [format, lint, typecheck, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm install
+
       - name: Check version changes
         uses: EndBug/version-check@v1
         id: check
         with:
           diff-search: true
           file-name: package.json
-      - name: npm publish --access public
+
+      - name: Publish to NPM
         if: steps.check.outputs.changed == 'true'
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npm install
-          npm publish --access public
+        run: npm publish --access public
 
-      - name: npm publish --dry-run --access public
+      - name: Run publish dry run
         if: steps.check.outputs.changed != 'true'
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npm install
-          npm publish --dry-run --access public
+        run: npm publish --dry-run --access public
