@@ -11,7 +11,7 @@ import {
 import { getRuleMetaData } from "../utils";
 import { simpleTraverse, TSESTree } from "@typescript-eslint/typescript-estree";
 
-export = {
+export default {
   meta: getRuleMetaData(
     "no-access-state-after-set",
     "disallows access of React state variables after they have been set in a useEffect function body"
@@ -230,7 +230,7 @@ export = {
               if (
                 lastInternalBlock.parent?.type === "FunctionDeclaration" ||
                 (lastInternalBlock.parent?.type === "ArrowFunctionExpression" &&
-                  lastInternalBlock.parent?.parent?.type ===
+                  lastInternalBlock.parent.parent?.type ===
                     "VariableDeclarator")
               ) {
                 // if so, ignore the outermost level

@@ -38,6 +38,7 @@
     "curly": "error",
     "eqeqeq": "error",
     "import/default": "off",
+    "import/namespace": "off",
     "import/no-unresolved": ["error", { "ignore": ["^estree$"] }],
     "no-console": "error",
     "no-duplicate-imports": "error",

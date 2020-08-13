@@ -1,4 +1,4 @@
-export = {
+export default {
   plugins: ["jsx-a11y", "react", "react-hooks"],
   parserOptions: {
     ecmaFeatures: {
