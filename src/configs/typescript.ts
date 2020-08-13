@@ -1,6 +1,6 @@
 import { MAGIC_NUMBERS } from "../utils";
 
-export = {
+export default {
   plugins: ["@typescript-eslint", "import"],
   extends: [
     "plugin:@typescript-eslint/eslint-recommended",

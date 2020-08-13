@@ -8,7 +8,7 @@ import {
 } from "estree";
 import { getRuleMetaData } from "../utils";
 
-export = {
+export default {
   meta: getRuleMetaData(
     "no-redundant-functions",
     "forbids redundant functions that simply pass their arguments directly to another function in the same order"

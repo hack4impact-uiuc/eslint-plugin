@@ -37,7 +37,6 @@
     "arrow-body-style": ["error", "as-needed"],
     "curly": "error",
     "eqeqeq": "error",
-    "import/default": "off",
     "import/no-unresolved": ["error", { "ignore": ["^estree$"] }],
     "no-console": "error",
     "no-duplicate-imports": "error",

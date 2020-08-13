@@ -1,6 +1,6 @@
 import { MAGIC_NUMBERS } from "../utils";
 
-export = {
+export default {
   parser: "@typescript-eslint/parser",
   env: {
     browser: true,
