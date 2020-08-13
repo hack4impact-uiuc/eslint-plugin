@@ -1,4 +1,4 @@
-import configs from "./configs";
+import * as configs from "./configs";
 import rules from "./rules";
 
-export default { configs, rules };
+export { configs, rules };
