@@ -1,4 +1,4 @@
-import plugin from "../src";
+import { rules, configs } from "../src";
 import { describe, it, Test } from "mocha";
 import { assert } from "chai";
 import { existsSync, readFileSync } from "fs";
@@ -144,22 +144,16 @@ const testRule = (ruleName: string, rules: any): void => {
 };
 
 describe("plugin", (): void => {
-  const { rules, configs } = plugin;
-
   describe("rules", (): void => {
     it("rules should be a member of the plugin", (): void =>
-      assert.property(plugin, "rules", "rules is not a member of the plugin"));
+      assert.isDefined(rules, "rules is not a member of the plugin"));
 
     Object.keys(rules).forEach((ruleName) => testRule(ruleName, rules));
   });
 
   describe("configs", (): void => {
     it("configs should be a member of the plugin", (): void =>
-      assert.property(
-        plugin,
-        "configs",
-        "configs is not a member of the plugin"
-      ));
+      assert.isDefined(configs, "configs is not a member of the plugin"));
 
     describe("base", (): Test =>
       it("base should be a member of configs", (): void =>
