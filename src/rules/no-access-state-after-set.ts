@@ -256,7 +256,8 @@ export default {
                     enter: (postChild) => {
                       if (
                         postChild.type === "Identifier" &&
-                        postChild.name === modifiedField
+                        postChild.name === modifiedField && 
+                        postChild.parent?.type !== "MemberExpression"
                       ) {
                         context.report({
                           node: postChild,
