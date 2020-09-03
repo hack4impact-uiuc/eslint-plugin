@@ -165,6 +165,31 @@ const functionValidIf = `function Example() {
   return <></>;
 }`;
 
+const classValidProperty = `class Example extends Component {
+  componentDidMount() {
+    const example = "Example";
+    this.setState({example});
+    console.log(this.state.other.example);
+  }
+  
+  render() {
+    return <></>;
+  }
+}`;
+
+const functionValidProperty = `function Example() {
+  const [example, setExample] = useState(true);
+  const [other, setOther] = useState(true);
+
+  const updateExample = () => {
+    const newExample = "Example";
+    setExample(newExample);
+    console.log(other.example);
+  };
+
+  return <></>;
+}`;
+
 const classValidDestructureSetstate = `class Example extends Component {
   componentDidMount() {
     const { setState } = this;
@@ -569,6 +594,8 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionValidMultiple },
     { code: classValidIf },
     { code: functionValidIf },
+    { code: classValidProperty },
+    { code: functionValidProperty },
     { code: classValidDestructureSetstate },
     { code: classValidUpdater },
     { code: functionValidDeclaration },
