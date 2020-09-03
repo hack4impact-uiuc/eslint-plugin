@@ -256,8 +256,10 @@ export default {
                     enter: (postChild) => {
                       if (
                         postChild.type === "Identifier" &&
-                        postChild.name === modifiedField && 
-                        postChild.parent?.type !== "MemberExpression"
+                        postChild.name === modifiedField &&
+                        (postChild.parent?.type !== "MemberExpression" ||
+                          (postChild.parent as TSESTree.MemberExpression)
+                            .object === postChild)
                       ) {
                         context.report({
                           node: postChild,
