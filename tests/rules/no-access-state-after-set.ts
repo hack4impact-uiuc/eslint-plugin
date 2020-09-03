@@ -446,6 +446,31 @@ const functionInvalidThen = `function Example() {
   return <></>;
 }`;
 
+const classInvalidProperty = `class Example extends Component {
+  componentDidMount() {
+    const example = "Example";
+    this.setState({example});
+    console.log(this.state.example.other);
+  }
+  
+  render() {
+    return <></>;
+  }
+}`;
+
+const functionInvalidProperty = `function Example() {
+  const [example, setExample] = useState(true);
+  const [other, setOther] = useState(true);
+
+  const updateExample = () => {
+    const newExample = "Example";
+    setExample(newExample);
+    console.log(example.other);
+  };
+
+  return <></>;
+}`;
+
 const classInvalidDestructureSetstate = `class Example extends Component {
   componentDidMount() {
     const { setState } = this;
@@ -623,6 +648,8 @@ ruleTester.run("no-access-state-after-set", rule, {
     { code: functionInvalidIf, errors: [functionError] },
     { code: classInvalidThen, errors: [classError] },
     { code: functionInvalidThen, errors: [functionError] },
+    { code: classInvalidProperty, errors: [classError] },
+    { code: functionInvalidProperty, errors: [functionError] },
     {
       code: classInvalidDestructureSetstate,
       errors: [classError],
