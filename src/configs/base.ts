@@ -25,7 +25,6 @@ export default {
     curly: "error",
     eqeqeq: "error",
     "no-console": "off",
-    "no-duplicate-imports": "error",
     "no-else-return": "error",
     "no-empty-function": "error",
     "no-lone-blocks": "error",
