@@ -176,8 +176,8 @@ export default {
                 declaration.init.callee.name === "useState" &&
                 declaration.id.type === "ArrayPattern" &&
                 declaration.id.elements.length === useStateArrayLength &&
-                declaration.id.elements[0].type === "Identifier" &&
-                declaration.id.elements[1].type === "Identifier"
+                declaration.id.elements[0]?.type === "Identifier" &&
+                declaration.id.elements[1]?.type === "Identifier"
               ) {
                 const fieldName = declaration.id.elements[0].name;
                 const setterName = declaration.id.elements[1].name;
