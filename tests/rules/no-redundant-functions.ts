@@ -49,6 +49,7 @@ const generateInvalidTests = (
   }));
 
 const validArrowMember = `const example = () => console.log("example");`;
+const validHook = `useEffect(() => foo());`;
 
 ruleTester.run("no-redundant-functions", rule, {
   valid: [
@@ -67,6 +68,7 @@ ruleTester.run("no-redundant-functions", rule, {
     ...generateValidTests("[foo, bar]", "[bar, foo]"),
     ...generateValidTests("{foo, bar}", "{foo}"),
     { code: validArrowMember },
+    { code: validHook },
   ],
   invalid: [
     ...generateInvalidTests("", ""),

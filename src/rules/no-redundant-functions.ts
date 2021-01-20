@@ -17,6 +17,22 @@ export default {
   create: (context: Rule.RuleContext): Rule.RuleListener => {
     const sourceCode = context.getSourceCode();
 
+    const isInsideHook = (): boolean => {
+      const ancestors = context.getAncestors();
+
+      if (ancestors.length === 0) {
+        return false;
+      }
+
+      const parent = ancestors[ancestors.length - 1];
+
+      return (
+        parent.type === "CallExpression" &&
+        parent.callee.type === "Identifier" &&
+        parent.callee.name.startsWith("use")
+      );
+    };
+
     /**
      * Compares the parameters of the inner and outer functions to return if they are the same.
      * @param caller the outer CallExpression containing parameters
@@ -41,6 +57,10 @@ export default {
       ":matches(FunctionDeclaration, FunctionExpression)": (
         node: FunctionDeclaration | FunctionExpression
       ): void => {
+        if (isInsideHook()) {
+          return;
+        }
+
         const { body, params } = node;
         const blockBody = body.body;
         const [statement] = blockBody;
@@ -75,6 +95,10 @@ export default {
       },
 
       ArrowFunctionExpression: (node: ArrowFunctionExpression): void => {
+        if (isInsideHook()) {
+          return;
+        }
+
         const { params, body } = node;
 
         let caller: CallExpression | null = null;
