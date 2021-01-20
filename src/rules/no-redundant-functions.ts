@@ -17,21 +17,15 @@ export default {
   create: (context: Rule.RuleContext): Rule.RuleListener => {
     const sourceCode = context.getSourceCode();
 
-    const isInsideHook = (): boolean => {
-      const ancestors = context.getAncestors();
-
-      if (ancestors.length === 0) {
-        return false;
-      }
-
-      const parent = ancestors[ancestors.length - 1];
-
-      return (
-        parent.type === "CallExpression" &&
-        parent.callee.type === "Identifier" &&
-        parent.callee.name.startsWith("use")
-      );
-    };
+    const isInsideHook = (): boolean =>
+      context
+        .getAncestors()
+        .some(
+          (ancestor) =>
+            ancestor.type === "CallExpression" &&
+            ancestor.callee.type === "Identifier" &&
+            ancestor.callee.name.startsWith("use")
+        );
 
     /**
      * Compares the parameters of the inner and outer functions to return if they are the same.
