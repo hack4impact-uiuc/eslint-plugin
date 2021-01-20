@@ -48,7 +48,7 @@ function Example() {
 }
 ```
 
-```js
+````js
 function Example{
   // raw functions that are opaque to react hook analysis should not be passed
   useEffect(() => foo());
@@ -68,4 +68,4 @@ class Example extends Component {
 function Example() {
   return <Button onClick={() => toggle()}>Close</Button>;
 }
-```
+````
