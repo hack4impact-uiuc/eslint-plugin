@@ -1,6 +1,6 @@
 {
   "name": "@hack4impact-uiuc/eslint-plugin",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "An ESLint plugin intended for use with Hack4Impact UIUC projects.",
   "main": "dist/index.js",
   "files": [

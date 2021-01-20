@@ -33,6 +33,7 @@ export default {
     "no-nested-ternary": "error",
     "no-redeclare": "error",
     "no-sequences": "error",
+    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     "no-useless-escape": "off",
     "no-useless-constructor": "error",
     "no-template-curly-in-string": "error",
