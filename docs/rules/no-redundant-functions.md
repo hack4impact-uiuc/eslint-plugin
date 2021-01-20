@@ -48,6 +48,14 @@ function Example() {
 }
 ```
 
+```js
+function Example{
+  // raw functions that are opaque to react hook analysis should not be passed
+  useEffect(() => foo());
+
+  return <></>
+}
+
 ### Incorrect
 
 ```js
