@@ -60,19 +60,15 @@ If you need to modify or disable specific rules, you can do so in the `rules` se
 
 Note that disabling rules from plugins requires prefixing them with their corresponding scope and/or plugin name.
 
-### Fixes
-
-Some rules (see table below) are fixable using the `--fix` ESLint option.
-
 ## Supported Rules
 
 ### Rules
 
-| Rule                                                                      | Default                   | Fixable            |
-| ------------------------------------------------------------------------- | ------------------------- | ------------------ |
-| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md) | :triangular_flag_on_post: | :x:                |
-| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                     | :triangular_flag_on_post: | :heavy_check_mark: |
-| [**no-redundant-functions**](/docs/rules/no-redundant-functions.md)       | :triangular_flag_on_post: | :x:                |
+| Rule                                                                      | Default                   | Fixable |
+| ------------------------------------------------------------------------- | ------------------------- | ------- |
+| [**no-access-state-after-set**](/docs/rules/no-access-state-after-set.md) | :triangular_flag_on_post: | :x:     |
+| [**no-null-ternary**](/docs/rules/no-null-ternary.md)                     | :triangular_flag_on_post: | :x:     |
+| [**no-redundant-functions**](/docs/rules/no-redundant-functions.md)       | :triangular_flag_on_post: | :x:     |
 
 ### Key
 

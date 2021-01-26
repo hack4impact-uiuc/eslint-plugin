@@ -2,8 +2,6 @@
 
 Forbids placing `null` on one side of a ternary operator inside a JSX section.
 
-This rule is fixable using the `--fix` option.
-
 ## Examples
 
 ### Correct

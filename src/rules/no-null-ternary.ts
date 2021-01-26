@@ -9,10 +9,8 @@ export default {
     "code"
   ),
 
-  create: (context: Rule.RuleContext): Rule.RuleListener => {
-    const sourceCode = context.getSourceCode();
-
-    return {
+  create: (context: Rule.RuleContext): Rule.RuleListener =>
+    ({
       // look for null on right-hand side
       ":matches(JSXElement, JSXFragment) ConditionalExpression[alternate.type='Literal'][alternate.value=null]": (
         node: ConditionalExpression
@@ -21,13 +19,6 @@ export default {
           node,
           message:
             "unnecessary ternary conditional, use {condition} && {consequent} instead",
-          fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-            fixer.replaceText(
-              node,
-              `${sourceCode.getText(node.test)} && ${sourceCode.getText(
-                node.consequent
-              )}`
-            ),
         }),
 
       // look for null on left-hand side
@@ -38,14 +29,6 @@ export default {
           node,
           message:
             "unnecessary ternary conditional, use !{condition} && {consequent} instead",
-          fix: (fixer: Rule.RuleFixer): Rule.Fix =>
-            fixer.replaceText(
-              node,
-              `!${sourceCode.getText(node.test)} && ${sourceCode.getText(
-                node.alternate
-              )}`
-            ),
         }),
-    } as Rule.RuleListener;
-  },
+    } as Rule.RuleListener),
 };

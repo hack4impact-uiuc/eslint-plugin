@@ -96,22 +96,18 @@ ruleTester.run("no-null-ternary", rule, {
     {
       code: classInvalidPositive,
       errors: [positiveError],
-      output: classValidPositive,
     },
     {
       code: functionInvalidPositive,
       errors: [positiveError],
-      output: functionValidPositive,
     },
     {
       code: classInvalidNegative,
       errors: [negativeError],
-      output: classValidNegative,
     },
     {
       code: functionInvalidNegative,
       errors: [negativeError],
-      output: functionValidNegative,
     },
   ],
 });
