@@ -12,23 +12,21 @@ export default {
   create: (context: Rule.RuleContext): Rule.RuleListener =>
     ({
       // look for null on right-hand side
-      ":matches(JSXElement, JSXFragment) ConditionalExpression[alternate.type='Literal'][alternate.value=null]": (
-        node: ConditionalExpression
-      ): void =>
-        context.report({
-          node,
-          message:
-            "unnecessary ternary conditional, use {condition} && {consequent} instead",
-        }),
+      ":matches(JSXElement, JSXFragment) ConditionalExpression[alternate.type='Literal'][alternate.value=null]":
+        (node: ConditionalExpression): void =>
+          context.report({
+            node,
+            message:
+              "unnecessary ternary conditional, use {condition} && {consequent} instead",
+          }),
 
       // look for null on left-hand side
-      ":matches(JSXElement, JSXFragment) ConditionalExpression[consequent.type='Literal'][consequent.value=null]": (
-        node: ConditionalExpression
-      ): void =>
-        context.report({
-          node,
-          message:
-            "unnecessary ternary conditional, use !{condition} && {consequent} instead",
-        }),
+      ":matches(JSXElement, JSXFragment) ConditionalExpression[consequent.type='Literal'][consequent.value=null]":
+        (node: ConditionalExpression): void =>
+          context.report({
+            node,
+            message:
+              "unnecessary ternary conditional, use !{condition} && {consequent} instead",
+          }),
     } as Rule.RuleListener),
 };
